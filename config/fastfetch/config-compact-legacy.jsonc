@@ -30,7 +30,7 @@
         {
             "keyColor": "blue",
             "key": " ",
-            "text": "echo Jakoolit: v${DOTS_VERSION}",
+            "text": "echo JaKooLit-Soberano: v${DOTS_VERSION}",
 	    "type": "command"
         },
         {

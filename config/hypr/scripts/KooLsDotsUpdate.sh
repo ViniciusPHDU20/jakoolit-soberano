@@ -14,10 +14,10 @@ set -euo pipefail
 config_dir="${XDG_CONFIG_HOME:-$HOME/.config}/hypr"
 env_lua="$config_dir/lua/env.lua"
 iDIR="${XDG_CONFIG_HOME:-$HOME/.config}/swaync/images"
-CHANGELOG_URL="https://github.com/LinuxBeginnings/Hyprland-Dots/wiki/Changelogs"
-REMOTE_ENV_URL="https://raw.githubusercontent.com/LinuxBeginnings/Hyprland-Dots/main/config/hypr/lua/env.lua"
-REMOTE_API_CONTENTS="https://api.github.com/repos/LinuxBeginnings/Hyprland-Dots/contents/config/hypr"
-REMOTE_TREE_URL="https://github.com/LinuxBeginnings/Hyprland-Dots/tree/main/config/hypr"
+CHANGELOG_URL="https://github.com/ViniciusPHDU20/jakoolit-soberano/blob/main/CHANGELOG.md"
+REMOTE_ENV_URL="https://raw.githubusercontent.com/ViniciusPHDU20/jakoolit-soberano/main/config/hypr/lua/env.lua"
+REMOTE_API_CONTENTS="https://api.github.com/repos/ViniciusPHDU20/jakoolit-soberano/contents/config/hypr"
+REMOTE_TREE_URL="https://github.com/ViniciusPHDU20/jakoolit-soberano/tree/main/config/hypr"
 
 # Resolve notification icon
 get_icon() {
@@ -77,8 +77,8 @@ fi
 local_version="${local_version#v}"
 
 if [[ -z "$local_version" ]]; then
-  send_notification "$(get_icon "error.png")" "KooL Hyprland" "Unable to detect installed dotfiles version." "critical"
-  echo "Error: Unable to detect installed KooL's dots version in $config_dir" >&2
+  send_notification "$(get_icon "error.png")" "JaKooLit-Soberano" "Unable to detect installed dotfiles version." "critical"
+  echo "Error: Unable to detect installed JaKooLit-Soberano version in $config_dir" >&2
   exit 1
 fi
 
@@ -112,7 +112,7 @@ fi
 remote_version="${remote_version#v}"
 
 if [[ -z "$remote_version" ]]; then
-  send_notification "$(get_icon "error.png")" "KooL Hyprland" "Unable to determine latest GitHub version." "critical"
+  send_notification "$(get_icon "error.png")" "JaKooLit-Soberano" "Unable to determine latest GitHub version." "critical"
   echo "Error: Unable to determine latest version from GitHub." >&2
   exit 1
 fi
@@ -122,7 +122,7 @@ highest_version=$(printf '%s\n%s\n' "$local_version" "$remote_version" | sort -V
 
 if [[ "$highest_version" == "$local_version" ]]; then
   # No update available
-  send_notification "$(get_icon "note.png")" "KooL Hyprland" "Current installed version v${local_version} is most recent" "normal"
+  send_notification "$(get_icon "note.png")" "JaKooLit-Soberano" "Current installed version v${local_version} is most recent" "normal"
   echo "Current installed version v${local_version} is most recent"
   exit 0
 fi
@@ -140,14 +140,14 @@ show_update_window() {
   if command -v yad >/dev/null 2>&1; then
     local yad_icon
     yad_icon=$(get_icon "ja.png")
-    local yad_text="<b><big>KooL Hyprland Dots Update Available!</big></b>\n\n"
+    local yad_text="<b><big>JaKooLit-Soberano Update Available!</big></b>\n\n"
     yad_text+="<b>Current installed version:</b> ${cur_v}\n"
     yad_text+="<b>Most current version detected:</b> ${new_v}\n\n"
     yad_text+="<b>Changelog:</b>\n<a href=\"${CHANGELOG_URL}\">${CHANGELOG_URL}</a>\n"
 
     local ret=0
     yad --center \
-      --title="KooL Hyprland Update" \
+      --title="JaKooLit-Soberano Update" \
       --window-icon="$yad_icon" \
       --text="$yad_text" \
       --button="View Changelogs:2" \
@@ -167,7 +167,7 @@ show_update_window() {
   if command -v rofi >/dev/null 2>&1; then
     "${XDG_CONFIG_HOME:-$HOME/.config}/hypr/scripts/RofiFocusedWallpaperLink.sh" >/dev/null 2>&1 || true
 
-    local rofi_msg="<b>Update Available for KooL Hyprland Dots!</b>\n\n"
+    local rofi_msg="<b>Update Available for JaKooLit-Soberano!</b>\n\n"
     rofi_msg+="• Current installed version:      <b>${cur_v}</b>\n"
     rofi_msg+="• Most current version detected:  <b>${new_v}</b>\n\n"
     rofi_msg+="Changelog: ${CHANGELOG_URL}"

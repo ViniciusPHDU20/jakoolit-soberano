@@ -63,7 +63,7 @@ https://github.com/user-attachments/assets/49bc12b2-abaf-45de-a21c-67aacd9bb872
 - HINWEIS: Das Paket `curl` muss installiert sein, um die Skripte herunterzuladen
 
 ```bash
-sh <(curl -L https://raw.githubusercontent.com/LinuxBeginnings/Hyprland-Dots/main/Distro-Hyprland.sh)
+sh <(curl -L https://raw.githubusercontent.com/ViniciusPHDU20/jakoolit-soberano/main/Distro-Hyprland.sh)
 ```
 
 - Mit dem obigen Befehl kannst du jetzt automatisch die Hyprland Installationsskripte herunterladen und ausführen.

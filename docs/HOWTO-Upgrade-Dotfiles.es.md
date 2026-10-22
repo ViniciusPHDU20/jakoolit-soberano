@@ -1,36 +1,27 @@
-# Cómo actualizar los instaladores y dotfiles de KoolDots
+# Cómo actualizar los dotfiles de JaKooLit-Soberano
 
-- Al actualizar los dotfiles, actualice primero el instalador
-  - Esto garantiza que se instalen las dependencias nuevas o actualizadas
-    - Elimine las versiones antiguas del instalador de su distribución
-      - Por ejemplo: `Arch-Hyprland` o `Debian-Hyprland`
-      - `rm -r ~/Arch-Hyprland` (o la distribución que esté utilizando)
-      - Clone el instalador más reciente para su distribución.
+- Al actualizar los dotfiles, actualice primero el repositorio:
+  - Descargue los cambios más recientes o vuelva a ejecutar el instalador Soberano:
 
 ```sh
- git clone https://github.com/Linuxbeginnings/Arch-Hyprland --depth 1
- cd ~/Arch-Hyprland
- install-scripts/update-deps.sh
+  git clone https://github.com/ViniciusPHDU20/jakoolit-soberano.git ~/jakoolit-soberano --depth 1
+  cd ~/jakoolit-soberano
+  ./install-soberano.sh
 ```
 
-- Elimine el directorio antiguo de `Hyprland-Dots` si corresponde
-  - Clone la versión más reciente de Hyprland-Dots
+- O use `copy.sh` con actualización exprés:
 
 ```sh
-   git clone https://github.com/Linuxbeginnings/Hyprland-Dots  --depth 1
-   cd ~/Hyprland-Dots
-   ./copy.sh
-   seleccione `Express update`
+  cd ~/jakoolit-soberano
+  ./copy.sh
+  # seleccione `Express update` o:
+  ./copy.sh --express-upgrade
 ```
 
-- `Express update` es más rápido y muchas de las preguntas de restauración ya no son necesarias
-- Especialmente al migrar desde los archivos de configuración antiguos en `Hyprlang` a los archivos de configuración en `LUA`
-- Un atajo útil es:
-  `./copy.sh --express-upgrade`
-  - También hay disponible un menú simple en `TTY`:
-    - `./copy.sh --tty --express-upgrade`
+- También hay disponible un menú simple en `TTY`:
+  `./copy.sh --tty --express-upgrade`
 
-- Si no hubo errores, reinicie el sistema con `reboot`
+- Si no hubo errores, reinicie o refresque con `SUPER ALT R`
 
 | Nota: Si desea mantener limpio su directorio personal ($HOME), puede mover estos directorios
 

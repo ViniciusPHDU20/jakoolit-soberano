@@ -59,7 +59,7 @@ https://github.com/user-attachments/assets/49bc12b2-abaf-45de-a21c-67aacd9bb872
 - NOTE: vous avez besoin du pacquet `curl` pour que ça fonctionne
 
 ```bash
-sh <(curl -L https://raw.githubusercontent.com/LinuxBeginnings/Hyprland-Dots/main/Distro-Hyprland.sh)
+sh <(curl -L https://raw.githubusercontent.com/ViniciusPHDU20/jakoolit-soberano/main/Distro-Hyprland.sh)
 ```
 
 - Vous pouvez utiliser la commande ci-dessus pour cloner automatiquement les scripts d'installation `Distro-Hyprland`

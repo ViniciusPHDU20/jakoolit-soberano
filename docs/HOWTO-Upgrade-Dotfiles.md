@@ -1,36 +1,27 @@
-# How to upgrade the KoolDots Installers and Dotfiles
+# How to upgrade JaKooLit-Soberano Dotfiles
 
-- On updates to dotfiles, update the installer first
-  - This ensures that any new or updated dependencies get installed
-    - Remove any old versions of your distro installer
-      - I.e. `Arch-Hyprland` or `Debian-Hyprland`
-      - `rm -r ~/Arch-Hyprland` (Or whatever distro you are using)
-      - Clone the latest installer for your distro.
+- On updates to dotfiles, update the repository first:
+  - Pull the latest changes or re-run the Soberano installer
 
 ```sh
- git clone https://github.com/Linuxbeginnings/Arch-Hyprland --depth 1
- cd ~/Arch-Hyprland
- install-scripts/update-deps.sh
+  git clone https://github.com/ViniciusPHDU20/jakoolit-soberano.git ~/jakoolit-soberano --depth 1
+  cd ~/jakoolit-soberano
+  ./install-soberano.sh
 ```
 
-- Remove old `Hyprland-Dots` if applicable
-  - Clone latest Hyprland-Dots
+- Or use `copy.sh` with express update:
 
 ```sh
-   git clone https://github.com/Linuxbeginnings/Hyprland-Dots  --depth 1
-   cd ~/Hyprland-Dots
-   ./copy.sh
-   select `Express update`
+  cd ~/jakoolit-soberano
+  ./copy.sh
+  # select `Express update` or:
+  ./copy.sh --express-upgrade
 ```
 
-- `Express update` is faster and many of the restore questions are no longer needed
-- Especially moving from the old `Hyprlang` config files to `LUA` config files
-- A handy shortcut is:
-  `./copy.sh --express-upgrade`
-  - A simple `TTY` menu is also available
-    - `./copy.sh --tty --express-upgrade`
+- A simple `TTY` menu is also available:
+  `./copy.sh --tty --express-upgrade`
 
-- Assuming no errors `reboot`
+- Assuming no errors, reboot or refresh: `SUPER ALT R`
 
 | Note: If you want to de-clutter your home directory you can move these directories
 

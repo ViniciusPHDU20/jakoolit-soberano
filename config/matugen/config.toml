@@ -6,6 +6,11 @@ input_path = "~/.config/matugen/templates/hyprland-colors.lua"
 output_path = "~/.config/hypr/config/colors_dynamic.lua"
 post_hook = "hyprctl reload >/dev/null 2>&1 || true"
 
+[templates.hyprland_conf]
+input_path = "~/.config/matugen/templates/hyprland-colors.conf"
+output_path = "~/.config/hypr/wallust/wallust-hyprland.conf"
+post_hook = "hyprctl reload >/dev/null 2>&1 || true"
+
 [templates.kitty]
 input_path = "~/.config/matugen/templates/kitty-colors.conf"
 output_path = "~/.config/kitty/themes/matugen.conf"
