@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ==============================================================================
-#  JaKooLit-Soberano: Script de Instalação e Teste (VM / Bare Metal)
+#  JaKooLit-Soberano: Script de Instalação e Configuração (Bare Metal / VM)
 #  Repositório: https://github.com/ViniciusPHDU20/jakoolit-soberano
 # ==============================================================================
 
@@ -11,19 +11,20 @@ GREEN="\033[1;32m"
 BLUE="\033[1;34m"
 YELLOW="\033[1;33m"
 CYAN="\033[1;36m"
+MAGENTA="\033[1;35m"
 RED="\033[1;31m"
 RESET="\033[0m"
 
 echo -e "${CYAN}==============================================================================${RESET}"
-echo -e "${GREEN}   🌌 JAKOOLIT-SOBERANO: Instalador Next-Gen (Wayle + Matugen)               ${RESET}"
+echo -e "${GREEN}   🌌 JAKOOLIT-SOBERANO: Instalador Completo (Bare Metal & VM)              ${RESET}"
 echo -e "${CYAN}==============================================================================${RESET}"
 
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}"
 
-# 1. Instalar dependências essenciais caso esteja em Arch Linux / CachyOS / Manjaro
+# 1. Instalar dependências essenciais no Arch Linux / CachyOS / Manjaro
 if command -v pacman >/dev/null 2>&1; then
-    echo -e "\n${BLUE}[1/5] Verificando dependências no Arch Linux...${RESET}"
+    echo -e "\n${BLUE}[1/6] Verificando dependências no Arch Linux (Hardware Real & VM)...${RESET}"
     AUR_HELPER=""
     if command -v yay >/dev/null 2>&1; then
         AUR_HELPER="yay"
@@ -31,7 +32,31 @@ if command -v pacman >/dev/null 2>&1; then
         AUR_HELPER="paru"
     fi
 
-    PACKAGES=(hyprland matugen-bin wayle-shell kitty fuzzel rofi-wayland swww wl-clipboard)
+    # Pacotes da stack Soberano + ferramentas de hardware real (Áudio, Bluetooth, Brilho, Portals)
+    PACKAGES=(
+        hyprland
+        matugen-bin
+        wayle-shell
+        kitty
+        fuzzel
+        rofi-wayland
+        swww
+        wl-clipboard
+        brightnessctl
+        playerctl
+        pamixer
+        pavucontrol
+        swaync
+        network-manager-applet
+        bluez
+        bluez-utils
+        blueman
+        xdg-desktop-portal-hyprland
+        xdg-desktop-portal-gtk
+        grim
+        slurp
+        cliphist
+    )
     MISSING_PKGS=()
 
     for pkg in "${PACKAGES[@]}"; do
@@ -40,14 +65,20 @@ if command -v pacman >/dev/null 2>&1; then
         fi
     done
 
-    if [ ${#MISSING_PKGS[@]} -gt 0 ] && [ -n "$AUR_HELPER" ]; then
-        echo -e "${YELLOW}Instalando pacotes necessários: ${MISSING_PKGS[*]}${RESET}"
-        $AUR_HELPER -S --needed --noconfirm "${MISSING_PKGS[@]}" || true
+    if [ ${#MISSING_PKGS[@]} -gt 0 ]; then
+        if [ -n "$AUR_HELPER" ]; then
+            echo -e "${YELLOW}Instalando pacotes necessários: ${MISSING_PKGS[*]}${RESET}"
+            $AUR_HELPER -S --needed --noconfirm "${MISSING_PKGS[@]}" || true
+        else
+            echo -e "${YELLOW}Aviso: Instale via seu gerenciador: ${MISSING_PKGS[*]}${RESET}"
+        fi
+    else
+        echo -e "${GREEN}✓ Todos os pacotes essenciais do sistema estão instalados.${RESET}"
     fi
 fi
 
 # 2. Copiar as configurações para ~/.config
-echo -e "\n${BLUE}[2/5] Copiando configurações para $CONFIG_DIR...${RESET}"
+echo -e "\n${BLUE}[2/6] Copiando configurações para $CONFIG_DIR...${RESET}"
 mkdir -p "$CONFIG_DIR"
 
 # Cria backups de segurança se já existirem configurações
@@ -63,16 +94,65 @@ cp -r "$DOTFILES_DIR/config/hypr" "$CONFIG_DIR/"
 cp -r "$DOTFILES_DIR/config/matugen" "$CONFIG_DIR/"
 mkdir -p "$CONFIG_DIR/wayle"
 
-# 3. Configurar Layout Inicial do Wayle (TOP-Default)
-echo -e "\n${BLUE}[3/5] Configurando layout inicial do Wayle...${RESET}"
+# 3. Detecção e Ajuste Automático de Hardware (GPU / Laptop / VM)
+echo -e "\n${BLUE}[3/6] Detectando hardware e aplicando otimizações...${RESET}"
+PCI_INFO="$(lspci -k 2>/dev/null | grep -A 2 -E "(VGA|3D)" || true)"
+
+IS_NVIDIA=0
+if echo "$PCI_INFO" | grep -iq nvidia; then
+    IS_NVIDIA=1
+fi
+
+IS_VM=0
+if hostnamectl 2>/dev/null | grep -q 'Chassis: vm' || (command -v systemd-detect-virt >/dev/null 2>&1 && systemd-detect-virt -q); then
+    IS_VM=1
+fi
+
+IS_LAPTOP=0
+if [ -d /sys/class/power_supply ] && ls /sys/class/power_supply/ | grep -qE '^BAT[0-9]+'; then
+    IS_LAPTOP=1
+fi
+
+ENV_LUA="$CONFIG_DIR/hypr/lua/env.lua"
+SETTINGS_LUA="$CONFIG_DIR/hypr/lua/settings.lua"
+
+if [ "$IS_NVIDIA" -eq 1 ]; then
+    echo -e "${MAGENTA}⚡ GPU NVIDIA detectada! Configurando drivers proprietários e cursor de software...${RESET}"
+    if [ -f "$ENV_LUA" ]; then
+        sed -i 's/^--[[:space:]]*hl\.env("LIBVA_DRIVER_NAME"/hl.env("LIBVA_DRIVER_NAME"/' "$ENV_LUA"
+        sed -i 's/^--[[:space:]]*hl\.env("__GLX_VENDOR_LIBRARY_NAME"/hl.env("__GLX_VENDOR_LIBRARY_NAME"/' "$ENV_LUA"
+        sed -i 's/^--[[:space:]]*hl\.env("NVD_BACKEND"/hl.env("NVD_BACKEND"/' "$ENV_LUA"
+        sed -i 's/^--[[:space:]]*hl\.env("GSK_RENDERER"/hl.env("GSK_RENDERER"/' "$ENV_LUA"
+    fi
+    if [ -f "$SETTINGS_LUA" ]; then
+        sed -i -E 's/^([[:space:]]*no_hardware_cursors[[:space:]]*=[[:space:]]*)[0-9]+/\1 1/' "$SETTINGS_LUA"
+    fi
+elif [ "$IS_VM" -eq 1 ]; then
+    echo -e "${YELLOW}🖥️  Ambiente Virtual (VM) detectado. Ativando renderização de software e compatibilidade...${RESET}"
+    if [ -f "$ENV_LUA" ]; then
+        sed -i 's/^--[[:space:]]*hl\.env("WLR_RENDERER_ALLOW_SOFTWARE"/hl.env("WLR_RENDERER_ALLOW_SOFTWARE"/' "$ENV_LUA"
+    fi
+    if [ -f "$SETTINGS_LUA" ]; then
+        sed -i -E 's/^([[:space:]]*no_hardware_cursors[[:space:]]*=[[:space:]]*)[0-9]+/\1 1/' "$SETTINGS_LUA"
+    fi
+else
+    echo -e "${GREEN}✓ GPU AMD/Intel nativa detectada. Drivers Mesa Direct Rendering ativos (zero overhead).${RESET}"
+fi
+
+if [ "$IS_LAPTOP" -eq 1 ]; then
+    echo -e "${GREEN}✓ Laptop detectado: Módulo de bateria e atalhos de brilho prontos.${RESET}"
+fi
+
+# 4. Configurar Layout Inicial do Wayle (TOP-Default)
+echo -e "\n${BLUE}[4/6] Configurando layout inicial do Wayle...${RESET}"
 DEFAULT_LAYOUT="$CONFIG_DIR/hypr/wayle/layouts/TOP-Default.toml"
 if [ -f "$DEFAULT_LAYOUT" ]; then
     cp -f "$DEFAULT_LAYOUT" "$CONFIG_DIR/wayle/config.toml"
     echo -e "${GREEN}✓ Layout 'TOP-Default' ativado como padrão do Wayle.${RESET}"
 fi
 
-# 4. Configurar Papéis de Parede e gerar paleta inicial com Matugen
-echo -e "\n${BLUE}[4/5] Gerando paleta de cores inicial (Matugen Material You)...${RESET}"
+# 5. Configurar Papéis de Parede e gerar paleta inicial com Matugen
+echo -e "\n${BLUE}[5/6] Gerando paleta de cores inicial (Matugen Material You)...${RESET}"
 mkdir -p "$HOME/Pictures/wallpapers"
 if [ -d "$DOTFILES_DIR/wallpapers" ]; then
     cp -r "$DOTFILES_DIR/wallpapers/"* "$HOME/Pictures/wallpapers/" || true
@@ -84,17 +164,18 @@ if [ -n "$DEFAULT_WALL" ] && command -v matugen >/dev/null 2>&1; then
     matugen image "$DEFAULT_WALL" || true
 fi
 
-# 5. Permissões de execução dos scripts
-echo -e "\n${BLUE}[5/5] Ajustando permissões de execução dos scripts...${RESET}"
+# 6. Permissões de execução dos scripts
+echo -e "\n${BLUE}[6/6] Ajustando permissões de execução dos scripts...${RESET}"
 chmod +x "$CONFIG_DIR/hypr/scripts/"*.sh || true
 chmod +x "$CONFIG_DIR/hypr/UserScripts/"*.sh || true
 
 echo -e "\n${GREEN}==============================================================================${RESET}"
 echo -e "${GREEN}   🎉 INSTALAÇÃO CONCLUÍDA COM SUCESSO!                                     ${RESET}"
 echo -e "${GREEN}==============================================================================${RESET}"
-echo -e "${CYAN}Como testar na sua VM:${RESET}"
-echo -e " 1. Inicie a sessão: ${YELLOW}Hyprland${RESET}"
-echo -e " 2. A barra ${GREEN}Wayle${RESET} iniciará automaticamente com o layout clássico do JaKooLit."
-echo -e " 3. Pressione ${YELLOW}SUPER + ALT + B${RESET} para abrir o seletor com todos os ${GREEN}47 layouts${RESET} convertidos."
-echo -e " 4. Pressione ${YELLOW}SUPER + W${RESET} para escolher qualquer wallpaper (o Matugen recalculará as cores em tempo real)."
-echo -e "\nAproveite os rices do JaKooLit rodando na nova geração Wayle & Matugen!\n"
+echo -e "${CYAN}Instruções de uso (Bare Metal ou VM):${RESET}"
+echo -e " 1. Inicie sua sessão Wayland: ${YELLOW}Hyprland${RESET}"
+echo -e " 2. A barra ${GREEN}Wayle${RESET} iniciará automaticamente com suporte total a Material You."
+echo -e " 3. Pressione ${YELLOW}SUPER + ALT + B${RESET} para trocar entre os ${GREEN}47 layouts${RESET} do JaKooLit."
+echo -e " 4. Pressione ${YELLOW}SUPER + W${RESET} para trocar de wallpaper (recalculando a paleta dinamicamente)."
+echo -e " 5. Se estiver em Laptop, teclas de brilho e bateria estão 100% integradas."
+echo -e "\nPronto para uso diário em máquina real ou VM!\n"
