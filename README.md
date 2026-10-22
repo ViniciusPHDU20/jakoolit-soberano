@@ -1,211 +1,104 @@
-# 🌌 JaKooLit-Soberano (Next-Gen Wayle & Matugen Fork)
+# 🌌 JaKooLit-Soberano (Next-Gen Wayle & Matugen Edition)
 
-> **Fork oficial e modernizado dos dotfiles do [JaKooLit / LinuxBeginnings](https://github.com/LinuxBeginnings/Hyprland-Dots).**  
-> **100% migrado da stack legada (Waybar GTK3 + Wallust) para a nova stack em Rust & GTK4 (Wayle + Matugen + Dual-Surface Engine).**
-
----
-
-### ⚡ Destaques da Nova Arquitetura Soberana:
-- 🚀 **Wayle Engine**: Substituição completa do Waybar pelo Wayle em Rust/GTK4 (metade do consumo de RAM, animações a 165Hz e hot-reload via D-Bus).
-- 🎨 **Matugen 100%**: Cores dinâmicas extraídas de qualquer papel de parede via algoritmo oficial Material You (M3), sem templates frágeis de Wallust.
-- 📐 **47 Presets Convertidos**: Todos os 47 layouts clássicos do JaKooLit (`SummitSplit`, `Camellia`, `Peony`, `TOP-&-BOT`, etc.) transpilados nativamente para Wayle TOML em `config/hypr/wayle/layouts/`.
-- 🛡️ **Dual-Surface Rust Companion**: Módulo em Rust puro (`tools/soberano-cockpit-bar-rs`) para renderizar barras duplas simultâneas (topo + base) contornando limitações de singleton do Wayland.
-- 🔄 **Transpilador Incluso**: Script Python automatizado `tools/waybar_to_wayle_transpiler.py` para portar qualquer novo layout do Waybar para o Wayle em segundos.
+> **Fork moderno, reengenheirado e otimizado dos renomados dotfiles de [JaKooLit / LinuxBeginnings](https://github.com/LinuxBeginnings/Hyprland-Dots).**  
+> **Transição integral da stack legada (Waybar GTK3 + dezenas de scripts bash concorrentes + Wallust) para a moderna arquitetura em Rust & GTK4 (Wayle + Matugen Material You M3 + Dual-Surface Companion).**
 
 ---
 
-[![jp](https://img.shields.io/badge/lang-jp-blue.svg)](./i18n/README/README.jp.md)
-[![ro](https://img.shields.io/badge/lang-ro-green.svg)](./i18n/README/README.ro.md)
-[![ru](https://img.shields.io/badge/lang-ru-red.svg)](./i18n/README/README.ru.md)
-[![ua](https://img.shields.io/badge/lang-ua-white.svg)](./i18n/README/README.ua.md)
-[![de](https://img.shields.io/badge/lang-de-magenta.svg)](./i18n/README/README.de.md)
-[![fr](https://img.shields.io/badge/lang-fr-cyan.svg)](./i18n/README/README.fr.md)
+## ⚡ Destaques da Nova Arquitetura Soberana
 
-<h3 align="center">
-<img align="center" width="80%" src=https://github.com/user-attachments/assets/bc18bd4d-944b-4d5f-a119-7578fa38f9b4 />
-</h3>
-
-<p align="center">
-  <img src="https://raw.githubusercontent.com/LinuxBeginnings/Hyprland-Dots/main/assets/latte.png" width="400" />
-</p>
-
-<div align="center">
-<br>
-  <a href="#-installationupdate-instructions"><kbd> <br> Installation <br> </kbd></a>&ensp;&ensp;
-  <a href="https://github.com/LinuxBeginnings/Hyprland-Dots/wiki"><kbd> <br> Wiki <br> </kbd></a>&ensp;&ensp;
-  <a href="https://www.youtube.com/@LinuxBeginnings"><kbd> <br> Youtube <br> </kbd></a>&ensp;&ensp;
-  <a href="https://discord.gg/RZJgC7KAKm"><kbd> <br> Discord <br> </kbd></a>&ensp;&ensp;
-  <a href="https://www.youtube.com/playlist?list=PLDtGd5Fw5_GjXCznR0BzCJJDIQSZJRbxx"><kbd> <br> Legacy Jak Videos <br> </kbd></a>&ensp;&ensp;
-</div><br>
-
-<div align="center">
-
-<br/>
-</div>
-
-<h3 align="center">
-  <img src="https://github.com/LinuxBeginnings/Telegram-Animated-Emojis/blob/main/Activity/Sparkles.webp" alt="Sparkles" width="38" height="38" />
-  KooL's Hyprland Dotfiles Showcase
-  <img src="https://github.com/LinuxBeginnings/Telegram-Animated-Emojis/blob/main/Activity/Sparkles.webp" alt="Sparkles" width="38" height="38" />
-</h3>
-
-<div align="center">
-  <https://github.com/user-attachments/assets/49bc12b2-abaf-45de-a21c-67aacd9bb872>
-</div>
+- 🚀 **Wayle Shell em Rust / GTK4**: Substituição nativa do Waybar pelo Wayle. Elimina centenas de chamadas `fork()`/`execve()` a cada poucos segundos, reduz o uso de memória pela metade e oferece taxa de quadros a 144Hz/165Hz com hot-reload assíncrono via D-Bus e sockets UNIX do Hyprland.
+- 🎨 **Matugen 100% (Material Design 3)**: Cores e contrastes harmônicos extraídos diretamente de qualquer papel de parede em tempo real via algoritmo oficial M3 da Google, sincronizando simultaneamente Hyprland, Kitty, Ghostty, Fuzzel, Rofi, Btop e GTK 3/4.
+- 📐 **47 Presets Convertidos**: Todos os 47 layouts icônicos criados pelo JaKooLit (`SummitSplit`, `Camellia`, `Peony`, `TOP-Default`, `[TOP & BOT] SummitSplit v3`, etc.) foram transpilados e validados para TOML nativo do Wayle em `config/hypr/wayle/layouts/`.
+- 🛡️ **Dual-Surface Rust Companion**: Módulo em Rust puro (`tools/soberano-cockpit-bar-rs`) compilado nativamente para orquestrar barras duplas simultâneas (cockpit inferior com volume, rede e painel de notificações).
+- 🔄 **Transpilador Incluso**: Ferramenta automatizada `tools/waybar_to_wayle_transpiler.py` para converter quaisquer novas configurações do ecossistema Waybar para Wayle TOML.
+- 🍱 **Compatibilidade Total com Rofi e Temas**: Todos os 23 layouts visuais do Rofi herdam dinamicamente as cores do Matugen através de templates dedicados, sem quebrar os seletores clássicos.
 
 ---
 
-[![Typing SVG](https://readme-typing-svg.herokuapp.com?font=Fira+Code&weight=700&size=22&pause=1000&color=F7077E&vCenter=true&width=435&height=30&lines=INSTALLATION)](https://git.io/typing-svg)
+## 📸 Visão Geral dos Rices
 
-### 🏁 Auto Distro-Hyprland install scripts cloning and starting
+| Layout Clássico | Matugen Dynamic Theming | Dual-Surface Cockpit |
+|:---:|:---:|:---:|
+| **TOP-Default / Summit** | **Material You M3 Palette** | **Wayle + Rust Companion** |
+| Alta performance, zero polling | Adaptação automática ao wallpaper | Cockpit multissuperfície |
 
-> [!CAUTION]
-> If you are using FISH SHELL, DO NOT use this function. Clone the Distro-Hyprland and ran install.sh instead
+---
 
-- NOTE: you need package `curl` for this to work
+## 🚀 Instalação Rápida (VM ou Bare Metal)
+
+### Método 1: Instalador Automatizado Soberano (Recomendado)
+
+O instalador detecta a distribuição (Arch Linux, CachyOS, Manjaro, etc.), instala automaticamente os pacotes modernos (`wayle-shell`, `matugen-bin`, `hyprland`, `kitty`, `fuzzel`, `swww`) e implanta as configurações:
 
 ```bash
-sh <(curl -L https://raw.githubusercontent.com/LinuxBeginnings/Hyprland-Dots/main/Distro-Hyprland.sh)
+git clone --depth=1 https://github.com/ViniciusPHDU20/jakoolit-soberano.git
+cd jakoolit-soberano
+chmod +x install-soberano.sh
+./install-soberano.sh
 ```
 
-- You can use the above command to automatically clone the `Distro-Hyprland` install scripts
-- It will clone the install script and start the `install.sh`
+### Método 2: Instalação Manual ou Upgrade de Dotfiles Existentes
 
-### 👁️‍🗨️ My Hyprland install Scripts
-
-Automated Hyprland Scripts for Distro of choice which will pull this dotfiles if opted to install these configurations
-
-- [Arch-Linux](https://github.com/LinuxBeginnings/Arch-Hyprland)
-
-- [Fedora-Linux (43/44//Rawhide)](https://github.com/LinuxBeginnings/Fedora-Hyprland)
-
-- [Debian-Linux (Trixie,Testing,SID)](https://github.com/LinuxBeginnings/Debian-Hyprland)
-
-- [NixOS (25.05+)](https://github.com/LinuxBeginnings/NixOS-Hyprland)
-
-- [Ubuntu 24.04 LTS](https://github.com/LinuxBeginnings/Ubuntu-Hyprland/tree/24.04)
-- [Ubuntu 26.04 LTS](https://github.com/LinuxBeginnings/Ubuntu-Hyprland/tree/26.04)
-
-- No longer supported
-
-  - [OpenSUSE(Tumbleweed)](https://github.com/LinuxBeginnings/OpenSuse-Hyprland)
-  - [Ubuntu 24.10 (deprecated)](https://github.com/LinuxBeginnings/Ubuntu-Hyprland/tree/24.10)
-  - [Ubuntu 25.04 (deprecated)](https://github.com/LinuxBeginnings/Ubuntu-Hyprland/tree/25.04)
-  - [Ubuntu 25.10 (deprecated )](https://github.com/LinuxBeginnings/Ubuntu-Hyprland/tree/25.10)
-
----
-
-### 🪧 Attention
-
-- This repo does NOT contain or will NOT install any packages. These are only pre-configured-hyprland configs or dotfiles
-- refer to install scripts what packages needed to install... but at least, Hyprland packages are required
-- This repo will be pulled by the Distro-Hyprland install scripts above if you opt to download pre-configured dots
-
-### 👀 Screenshots
-
-- All screenshots are collected here [Screenshots](https://github.com/LinuxBeginnings/screenshots/tree/main/Hyprland-ScreenShots)
-
-### 📦 What's new?
-
-- To easily track changes, I will be updating the [CHANGELOGS](https://github.com/LinuxBeginnings/Hyprland-Dots/wiki/Changelogs) Screenshots will be included if worth mentioning the changes!
-
-### 💥 Installation/Update instructions
-
-- [`MORE INFO HERE`](https://github.com/LinuxBeginnings/Hyprland-Dots/wiki/Install_&_Update)
-  > [!Note]
-  > The auto copy script `copy.sh` will create backups of intended directories to be copied.
-  > However, it's still a good idea to manually backup just incase script fails to backup your configuration.
-  > If you already have a hyprland configuration, uninstall it first, or create a new user, and install it with that user
-
-> To download from main branch
-
-- Clone this repo by using `git`.
-- Change directory, i.e. `cd Arch-Hyprland`
-- Make `install.sh` executable `chmod +x ./install.sh`
-- Run the script `./install.sh`
-
-> To download from Master branch
-> Note: Ubuntu is exception, it has version specific branches
+Se você já possui as ferramentas instaladas e deseja apenas aplicar as configurações preservando seus backups:
 
 ```bash
-git clone --depth=1 https://github.com/LinuxBeginnings/Hyprland-Dots.git && cd Hyprland-Dots
-```
-
-> To download from Development branch
-> Not recommended for non-testing systems
-
-```bash
-git clone --depth=1 https://github.com/LinuxBeginnings/Hyprland-Dots.git -b development && cd Hyprland-Dots
-```
-
-- automatic copy/install of pre-configured dots (recommended for updating)
-
-```bash
+git clone --depth=1 https://github.com/ViniciusPHDU20/jakoolit-soberano.git
+cd jakoolit-soberano
 chmod +x copy.sh
 ./copy.sh
 ```
 
-#### ⚠️ BACKUPS CREATED by SCRIPT
+---
 
-> [!CAUTION]
-> `copy.sh` creates a backup!
-> Kindly investigate manually contents on your `$HOME/.config`
-> Delete manually any backups which you dont want.
+## ⌨️ Principais Atalhos de Teclado (Keybinds)
 
-#### 🛎️ a small note on wallpapers
+| Atalho | Ação | Descrição |
+|:---|:---|:---|
+| <kbd>SUPER</kbd> + <kbd>ALT</kbd> + <kbd>B</kbd> | **Seletor de Layouts Wayle** | Menu Rofi/Fuzzel com os 47 layouts transpilados |
+| <kbd>SUPER</kbd> + <kbd>CTRL</kbd> + <kbd>B</kbd> | **Seletor de Estilos Wayle** | Alterna estilos (Matugen-Dynamic, Catppuccin, Cyber-Chroma, etc.) |
+| <kbd>SUPER</kbd> + <kbd>CTRL</kbd> + <kbd>ALT</kbd> + <kbd>B</kbd> | **Toggle Wayle** | Oculta ou reexibe a barra Wayle |
+| <kbd>SUPER</kbd> + <kbd>ALT</kbd> + <kbd>R</kbd> | **Recarregar Ambiente** | Recarrega Wayle, SwayNC e paletas do Matugen sem travar a sessão |
+| <kbd>SUPER</kbd> + <kbd>W</kbd> | **Seletor de Wallpaper** | Abre o menu de papéis de parede e dispara o Matugen |
+| <kbd>CTRL</kbd> + <kbd>ALT</kbd> + <kbd>W</kbd> | **Wallpaper Aleatório** | Troca o papel de parede e recalcula a paleta M3 em tempo real |
+| <kbd>SUPER</kbd> + <kbd>D</kbd> | **Lançador de Aplicativos** | Rofi / Fuzzel estilizado com a paleta atual |
+| <kbd>SUPER</kbd> + <kbd>Return</kbd> | **Terminal Kitty** | Terminal acelerado por GPU com cores dinâmicas |
+| <kbd>SUPER</kbd> + <kbd>H</kbd> | **Cheat Sheet** | Exibe o menu com todos os atalhos disponíveis |
 
-- by default, only few wallpapers will be copied (1 each dark and light plus 3 more). You will be offered to download more wallpapers. You can preview/check the additional wallpapers from this [`LINK`](https://github.com/LinuxBeginnings/Wallpaper-Bank/tree/main/wallpapers)
+---
 
-#### ⚠️ after installing these dots
+## 🏗️ Estrutura do Projeto
 
-- NVIDIA Owners.
-  - After installation, check [`THIS`](https://github.com/LinuxBeginnings/Hyprland-Dots/wiki/FAQ_NVIDIA)
-  - Make sure to edit your `~/.config/hypr/UserConfigs/ENVariables.conf` (highly recommended).
-- Hybrid Intel/NVIDIA or AMD/NVIDIA laptops may need cursor handoff fixes
-  - The installer now enables XCURSOR fallbacks and a startup cursor refresh when hybrid GPUs are detected.
-- If you have already set your own keybinds, monitors, etc.... Just copy over from backup created before log-out or reboot. (recommended)
+```
+jakoolit-soberano/
+├── config/
+│   ├── hypr/
+│   │   ├── configs/            # Configurações modulares do Hyprland em Lua
+│   │   ├── scripts/            # Scripts de automação otimizados (sem polling agressivo)
+│   │   │   ├── WayleStartup.sh # Lifecycle daemon do Wayle
+│   │   │   ├── WayleLayout.sh  # Seletor interativo dos 47 presets
+│   │   │   ├── WayleStyles.sh  # Seletor interativo de estilos SCSS/CSS
+│   │   │   ├── MatugenSwww.sh  # Motor central de theming dinâmico Material You
+│   │   │   └── Refresh.sh      # Recarregamento assíncrono suave
+│   │   └── wayle/
+│   │       ├── layouts/        # 47 presets convertidos para Wayle TOML
+│   │       └── styles/         # Temas visuais (Matugen, Catppuccin, Glass, Cyber)
+│   ├── matugen/
+│   │   ├── config.toml         # Mapeamento de templates para todas as ferramentas
+│   │   └── templates/          # Templates M3 (Hyprland, Kitty, Fuzzel, Rofi, Wayle, GTK)
+│   └── wayle/                  # Configuração padrão ativa do Wayle
+├── tools/
+│   ├── soberano-cockpit-bar-rs # Dual-surface companion em Rust/GTK4
+│   └── waybar_to_wayle_transpiler.py # Transpilador automatizado de Waybar para Wayle
+├── copy.sh                     # Motor de implantação e backup
+└── install-soberano.sh         # Script de instalação completa para VMs e bare-metal
+```
 
-#### 🙋 QUESTIONS ?
+---
 
-- FAQ! Yes you can use these dotfiles to other distro! Just ensure to install proper packages first! If it makes you feel better, I use same config on my Gentoo:)
-- QUICK HINT! Click the HINT! Waybar module (only available on some layouts). Also can be launched by keybind `SUPER + H`
-- More question? click here browse through this [WIKI](https://github.com/LinuxBeginnings/Hyprland-Dots/wiki/)
+## 🤝 Créditos e Reconhecimento
 
-#### ⌨ Keybinds
-
-- Keybinds [`HERE`](https://github.com/LinuxBeginnings/Hyprland-Dots/wiki/Keybinds)
-
-### ✍️ Contributing
-
-- If you have improvements on the dotfiles or configuration, feel free to submit a PR for improvement.
-    - Pull Requests (PRs) must be submitted against the `development` branch! 
-    - Those submitted against the `main` branch will be closed 
-    - The `main` branch is only for fully tested code 
-       - Your change might work fine for your distro but not for the others we support 
-- I always welcome improvements as I am also just learning just like you guys!
-
-- Click [`HERE`](https://github.com/LinuxBeginnings/Hyprland-Dots/blob/main/CONTRIBUTING.md) for a guide how to contribute
-
-> Thanks to all who have contributed code, or support on the Discord server. Your efforts are greatly appreciated
-
-### 🔮 Discord Server
-
-- Want to contribute? Click [`HERE`](https://github.com/LinuxBeginnings/Hyprland-Dots/blob/main/CONTRIBUTING.md) for a guide how to contribute
-
-  > Thanks to all who have contributed code, or support on the Discord server. You efforts are greatly appreciated
-
-- kindly join my [Discord](https://discord.gg/RZJgC7KAKm)
-
-### 💖 Support
-
-- a Star on my Github repos would be nice 🌟
-- Subscribe to my Youtube Channel [YouTube](https://www.youtube.com/@LinuxBeginnings)
-   > Note:  Videos coming soon to the YouTube channel!  
-
-## 🫰 Thank you for the stars 🩷
-
-### Document translations
-
-- Spanish: [Código de Conducta](./i18n/CODE_OF_CONDUCT/CODE_OF_CONDUCT.es.md) · [Guía de mensajes de commit](./i18n/COMMIT_MESSAGE_GUIDELINES/COMMIT_MESSAGE_GUIDELINES.es.md) · [Guía de contribución](./i18n/CONTRIBUTING/CONTRIBUTING.es.md)
-
-- French: [Code de Conduite](./i18n/CODE_OF_CONDUCT/CODE_OF_CONDUCT.fr.md) · [Directives pour les messages de commit](./i18n/COMMIT_MESSAGE_GUIDELINES/COMMIT_MESSAGE_GUIDELINES.fr.md) · [Guide de contribution](./i18n/CONTRIBUTING/CONTRIBUTING.fr.md)
+Este projeto é uma evolução direta construída sobre o trabalho pioneiro de:
+- **JaKooLit / LinuxBeginnings**: Pelo design original dos layouts, scripts e dotfiles ([Hyprland-Dots](https://github.com/LinuxBeginnings/Hyprland-Dots)).
+- **Comunidade Hyprland & Wayle**: Pelos projetos do compositor e da barra moderna em Rust.
+- **Mantenedor do Fork**: [ViniciusPHDU20](https://github.com/ViniciusPHDU20).
