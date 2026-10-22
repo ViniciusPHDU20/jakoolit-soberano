@@ -27,9 +27,20 @@
 
 ## 🚀 Instalação Rápida (VM ou Bare Metal)
 
-### Método 1: Instalador Automatizado Soberano (Recomendado)
+### ⚡ Comando Único via cURL (Instalação Expressa)
 
-O instalador detecta a distribuição (Arch Linux, CachyOS, Manjaro, etc.), instala automaticamente os pacotes modernos (`wayle-shell`, `matugen-bin`, `hyprland`, `kitty`, `fuzzel`, `swww`) e implanta as configurações:
+Abra o seu terminal em qualquer sistema recém-instalado (Arch Linux, CachyOS, etc.) e cole o comando abaixo:
+
+```bash
+bash <(curl -sSL https://raw.githubusercontent.com/ViniciusPHDU20/jakoolit-soberano/main/install-soberano.sh)
+```
+> O script cuidará de tudo: clonará o repositório, detectará automaticamente sua GPU (NVIDIA, AMD ou Intel), instalará a stack moderna (Wayle, Matugen, Hyprland) e ativará as configurações sem necessidade de intervenção manual complexa.
+
+---
+
+### Método 2: Clonando Manualmente
+
+Caso prefira clonar antes de executar:
 
 ```bash
 git clone --depth=1 https://github.com/ViniciusPHDU20/jakoolit-soberano.git
@@ -38,14 +49,12 @@ chmod +x install-soberano.sh
 ./install-soberano.sh
 ```
 
-### Método 2: Instalação Manual ou Upgrade de Dotfiles Existentes
+### Método 3: Apenas Sincronizar Dotfiles Existentes (`copy.sh`)
 
 Se você já possui as ferramentas instaladas e deseja apenas aplicar as configurações preservando seus backups:
 
 ```bash
-git clone --depth=1 https://github.com/ViniciusPHDU20/jakoolit-soberano.git
 cd jakoolit-soberano
-chmod +x copy.sh
 ./copy.sh
 ```
 

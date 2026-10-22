@@ -19,8 +19,38 @@ echo -e "${CYAN}================================================================
 echo -e "${GREEN}   🌌 JAKOOLIT-SOBERANO: Instalador Completo (Bare Metal & VM)              ${RESET}"
 echo -e "${CYAN}==============================================================================${RESET}"
 
-DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" 2>/dev/null && pwd || echo "")"
 CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}"
+
+# Se o instalador for executado diretamente via curl/pipe (sem clone prévio)
+if [ -z "$DOTFILES_DIR" ] || [ ! -d "$DOTFILES_DIR/config/hypr" ]; then
+    echo -e "${YELLOW}⚡ Execução remota via curl/pipe detectada. Preparando ambiente...${RESET}"
+    TARGET_DIR="$HOME/jakoolit-soberano"
+    if ! command -v git >/dev/null 2>&1; then
+        echo -e "${BLUE}Instalando Git...${RESET}"
+        if command -v pacman >/dev/null 2>&1; then
+            sudo pacman -S --needed --noconfirm git
+        elif command -v apt >/dev/null 2>&1; then
+            sudo apt update && sudo apt install -y git
+        elif command -v dnf >/dev/null 2>&1; then
+            sudo dnf install -y git
+        elif command -v zypper >/dev/null 2>&1; then
+            sudo zypper install -y git
+        fi
+    fi
+    if [ -d "$TARGET_DIR" ]; then
+        echo -e "${BLUE}Atualizando repositório existente em $TARGET_DIR...${RESET}"
+        cd "$TARGET_DIR"
+        git stash || true
+        git pull || true
+    else
+        echo -e "${BLUE}Clonando repositório em $TARGET_DIR...${RESET}"
+        git clone --depth=1 "https://github.com/ViniciusPHDU20/jakoolit-soberano.git" "$TARGET_DIR"
+        cd "$TARGET_DIR"
+    fi
+    chmod +x install-soberano.sh
+    exec ./install-soberano.sh "$@"
+fi
 
 # 1. Instalar dependências essenciais no Arch Linux / CachyOS / Manjaro
 if command -v pacman >/dev/null 2>&1; then
