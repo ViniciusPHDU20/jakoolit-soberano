@@ -1,0 +1,93 @@
+/* ==============================================================================
+ * Wayle Style Preset: Matugen-Dynamic (Material You Design 3)
+ * Project: jakoolit-soberano
+ * ============================================================================== */
+@import url("file:///home/viniciusphdu/.config/wayle/colors.css");
+
+* {
+    font-family: "JetBrainsMono Nerd Font", "Noto Sans", sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+window.wayle-bar,
+.wayle-bar {
+    background-color: transparent;
+    color: @window_fg_color;
+}
+
+.bar-container {
+    background-color: alpha(@window_bg_color, 0.88);
+    border: 1px solid alpha(@outline, 0.25);
+    border-radius: 14px;
+    padding: 3px 6px;
+    margin: 4px 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.28);
+}
+
+.module-group {
+    background-color: alpha(@card_bg_color, 0.65);
+    border-radius: 10px;
+    padding: 2px 8px;
+    margin: 2px 4px;
+    border: 1px solid alpha(@outline, 0.15);
+}
+
+.module {
+    padding: 0 6px;
+    transition: all 0.2s ease-in-out;
+}
+
+.module:hover {
+    background-color: alpha(@accent_color, 0.15);
+    border-radius: 8px;
+}
+
+/* Workspaces */
+.workspace-button {
+    padding: 2px 6px;
+    margin: 0 2px;
+    border-radius: 8px;
+    color: alpha(@window_fg_color, 0.6);
+    background: transparent;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.workspace-button.active {
+    color: @accent_fg_color;
+    background-color: @accent_color;
+    box-shadow: 0 2px 8px alpha(@accent_color, 0.4);
+}
+
+.workspace-button.urgent {
+    color: @destructive_fg_color;
+    background-color: @destructive_color;
+}
+
+/* Clock & Dates */
+.clock {
+    color: @accent_color;
+    font-weight: 700;
+}
+
+/* Audio & Sliders */
+.pulseaudio {
+    color: @secondary;
+}
+
+.battery {
+    color: @tertiary;
+}
+
+.battery.warning {
+    color: @destructive_color;
+}
+
+/* Network & Systray */
+.network {
+    color: @primary;
+}
+
+.systray {
+    margin: 0 4px;
+}

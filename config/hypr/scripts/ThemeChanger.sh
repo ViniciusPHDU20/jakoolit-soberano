@@ -26,7 +26,14 @@ require() {
   }
 }
 
-require wallust
+if ! command -v wallust >/dev/null 2>&1; then
+  if command -v matugen >/dev/null 2>&1; then
+    have_notify && notify-send -a ThemeChanger "Matugen M3 Active" "Color themes are dynamically generated from wallpaper via Matugen."
+    exit 0
+  fi
+  printf '%s\n' "Missing dependency: wallust" >&2
+  exit 127
+fi
 require rofi
 
 # notify-send is optional

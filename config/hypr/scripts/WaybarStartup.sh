@@ -149,6 +149,11 @@ start_waybar_direct() {
 }
 
 main() {
+    # Prefer Wayle in Soberano environment
+    if [ "${PREFER_WAYBAR:-0}" != "1" ] && [ -x "$SCRIPTSDIR/WayleStartup.sh" ] && command -v wayle >/dev/null 2>&1; then
+        exec "$SCRIPTSDIR/WayleStartup.sh" "$@"
+    fi
+
     # --restart forces a clean single-instance restart; the default is
     # start-if-missing so concurrent startup callers stay idempotent.
     local mode="start"

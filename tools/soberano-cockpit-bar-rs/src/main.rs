@@ -170,8 +170,14 @@ fn build_ui(app: &Application) {
 
     // Apply CSS directly from Matugen GTK theme
     let provider = gtk4::CssProvider::new();
-    let home = std::env::var("HOME").unwrap_or_else(|_| "/home/viniciusphdu".to_string());
-    let gtk_css = format!("{}/.config/gtk-4.0/gtk.css", home);
+    let home = std::env::var("HOME").unwrap_or_else(|_| ".".to_string());
+    let gtk_css = if std::path::Path::new(&format!("{}/.config/gtk-4.0/colors.css", home)).exists() {
+        format!("{}/.config/gtk-4.0/colors.css", home)
+    } else if std::path::Path::new(&format!("{}/.config/wayle/colors.css", home)).exists() {
+        format!("{}/.config/wayle/colors.css", home)
+    } else {
+        format!("{}/.config/gtk-4.0/gtk.css", home)
+    };
 
     let custom_css = format!(
         "@import url(\"file://{}\");\n

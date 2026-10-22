@@ -120,7 +120,15 @@ handle_open() {
     fi
 
     sleep 0.3
-    if pgrep -x waybar >/dev/null 2>&1 || pgrep -x '.waybar-wrapped' >/dev/null 2>&1; then
+    if pgrep -x wayle >/dev/null 2>&1 || pgrep -x soberano-cockpit-bar-rs >/dev/null 2>&1; then
+        if [ -x "$SCRIPTSDIR/Refresh.sh" ]; then
+            "$SCRIPTSDIR/Refresh.sh" >> "$LOGFILE" 2>&1 &
+        else
+            pkill -SIGUSR1 -x wayle >> "$LOGFILE" 2>&1 || true
+        fi
+    elif [ -x "$SCRIPTSDIR/WayleStartup.sh" ]; then
+        "$SCRIPTSDIR/WayleStartup.sh" >> "$LOGFILE" 2>&1 || true
+    elif pgrep -x waybar >/dev/null 2>&1 || pgrep -x '.waybar-wrapped' >/dev/null 2>&1; then
         pkill -SIGUSR2 -x waybar >> "$LOGFILE" 2>&1 || true
     elif [ -x "$SCRIPTSDIR/WaybarStartup.sh" ]; then
         "$SCRIPTSDIR/WaybarStartup.sh" >> "$LOGFILE" 2>&1 || true
@@ -154,12 +162,15 @@ handle_refresh() {
         "$SCRIPTSDIR/WallpaperDaemon.sh" >> "$LOGFILE" 2>&1 || true
     fi
 
-    # Refresh Waybar so its layer surfaces match the updated monitor positions.
-    # We only signal a running bar; a missing bar is (re)started through
-    # WaybarStartup.sh, which serializes on the shared Waybar lock. Never call
-    # Refresh.sh here: its kill+respawn path raced with concurrent monitor
-    # events and produced duplicate bars.
-    if pgrep -x waybar >/dev/null 2>&1 || pgrep -x '.waybar-wrapped' >/dev/null 2>&1; then
+    # Refresh Wayle / Waybar so its layer surfaces match the updated monitor positions.
+    if pgrep -x wayle >/dev/null 2>&1 || pgrep -x soberano-cockpit-bar-rs >/dev/null 2>&1; then
+        if [ -x "$SCRIPTSDIR/Refresh.sh" ]; then
+            "$SCRIPTSDIR/Refresh.sh" >> "$LOGFILE" 2>&1 &
+        fi
+        sleep 0.2
+    elif [ -x "$SCRIPTSDIR/WayleStartup.sh" ]; then
+        "$SCRIPTSDIR/WayleStartup.sh" >> "$LOGFILE" 2>&1 || true
+    elif pgrep -x waybar >/dev/null 2>&1 || pgrep -x '.waybar-wrapped' >/dev/null 2>&1; then
         pkill -SIGUSR2 -x waybar >> "$LOGFILE" 2>&1 || true
         sleep 0.2
     elif [ -x "$SCRIPTSDIR/WaybarStartup.sh" ]; then

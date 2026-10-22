@@ -23,6 +23,11 @@ apply_style() {
 }
 
 main() {
+    # Prefer Wayle Style selector in Soberano environment
+    if [ "${PREFER_WAYBAR:-0}" != "1" ] && [ -x "$SCRIPTSDIR/WayleStyles.sh" ]; then
+        exec "$SCRIPTSDIR/WayleStyles.sh" "$@"
+    fi
+
     # resolve current symlink and strip .css
     current_target=$(readlink -f "$waybar_style")
     current_name=$(basename "$current_target" .css)

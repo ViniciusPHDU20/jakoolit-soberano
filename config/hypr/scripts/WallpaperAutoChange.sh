@@ -45,7 +45,11 @@ while true; do
 			mkdir -p "$(dirname "$wallpaper_base")"
 			cp -f "$img" "$wallpaper_base" || true
 			# Regenerate colors from the exact image path to avoid cache races
-			${XDG_CONFIG_HOME:-$HOME/.config}/hypr/scripts/WallustSwww.sh "$img"
+			if [ -x "${XDG_CONFIG_HOME:-$HOME/.config}/hypr/scripts/MatugenSwww.sh" ]; then
+				"${XDG_CONFIG_HOME:-$HOME/.config}/hypr/scripts/MatugenSwww.sh" "$img"
+			else
+				"${XDG_CONFIG_HOME:-$HOME/.config}/hypr/scripts/WallustSwww.sh" "$img"
+			fi
 			# Refresh UI components that depend on wallust output
 			$wallust_refresh
 			sleep $INTERVAL

@@ -1,0 +1,63 @@
+/* ==============================================================================
+ * Wayle Style Preset: Glassmorphism-3D (Frosted Translucent Acrylic)
+ * Project: jakoolit-soberano
+ * ============================================================================== */
+@define-color glass_bg rgba(25, 27, 38, 0.45);
+@define-color glass_border rgba(255, 255, 255, 0.18);
+@define-color glass_item_bg rgba(255, 255, 255, 0.08);
+@define-color glass_fg #f0f3f6;
+@define-color glass_accent #7aa2f7;
+
+* {
+    font-family: "JetBrainsMono Nerd Font", sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+window.wayle-bar,
+.wayle-bar {
+    background-color: transparent;
+    color: @glass_fg;
+}
+
+.bar-container {
+    background-color: @glass_bg;
+    border: 1px solid @glass_border;
+    border-radius: 16px;
+    padding: 3px 6px;
+    margin: 6px 12px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+.module-group {
+    background-color: @glass_item_bg;
+    border-radius: 12px;
+    padding: 2px 8px;
+    margin: 2px 4px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.module {
+    padding: 0 6px;
+}
+
+.workspace-button {
+    padding: 2px 8px;
+    margin: 0 2px;
+    border-radius: 10px;
+    color: rgba(255, 255, 255, 0.6);
+    background: transparent;
+    transition: all 0.25s ease;
+}
+
+.workspace-button.active {
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+}
+
+.clock {
+    color: #ffffff;
+    font-weight: 700;
+}

@@ -263,19 +263,30 @@ apply_wlogout_background() {
     # 2. Render blurred background
     render_theme_background "$img_path" "${WLOGOUT_DIR}/bg.png" "$radius" "$CURRENT_THEME" "${THEMES_DIR}/fuji/grid_overlay.png"
 
-    # 3. Run wallust on the raw image to extract palette (skip in auto mode since WallustSwww.sh already ran it)
-    if [[ "$IS_AUTO" -ne 1 ]] && command -v wallust >/dev/null 2>&1; then
-        wallust run -s "$img_path" || true
+    # 3. Run matugen/wallust on the raw image to extract palette (skip in auto mode since MatugenSwww.sh already ran it)
+    if [[ "$IS_AUTO" -ne 1 ]]; then
+        if command -v matugen >/dev/null 2>&1; then
+            matugen image "$img_path" --mode dark >/dev/null 2>&1 || true
+        fi
+        if command -v wallust >/dev/null 2>&1; then
+            wallust run -s "$img_path" >/dev/null 2>&1 || true
+        fi
     fi
 
-    # 4. Read Wallust accent color from waybar template (prefer KoolDots location)
+    # 4. Read accent color from matugen or waybar template
+    local wayle_colors="${XDG_CONFIG_HOME:-$HOME/.config}/wayle/colors.css"
     local waybar_wallust="${XDG_CONFIG_HOME:-$HOME/.config}/hypr/waybar/wallust/colors-waybar.css"
     if [[ ! -f "$waybar_wallust" && -f "${XDG_CONFIG_HOME:-$HOME/.config}/waybar/wallust/colors-waybar.css" ]]; then
         waybar_wallust="${XDG_CONFIG_HOME:-$HOME/.config}/waybar/wallust/colors-waybar.css"
     fi
     local accent_color="#f0a6b2"
 
-    if [[ -f "$waybar_wallust" ]]; then
+    if [[ -f "$wayle_colors" ]]; then
+        local c_val
+        c_val=$(grep -oP '@define-color accent_color\s+\K#[A-Fa-f0-9]+' "$wayle_colors" | head -n 1 || true)
+        [[ -z "$c_val" ]] && c_val=$(grep -oP '@define-color primary\s+\K#[A-Fa-f0-9]+' "$wayle_colors" | head -n 1 || true)
+        [[ -n "$c_val" ]] && accent_color="$c_val"
+    elif [[ -f "$waybar_wallust" ]]; then
         local c_val
         c_val=$(grep -oP '@define-color color2\s+\K#[A-Fa-f0-9]+' "$waybar_wallust" | head -n 1 || true)
         if [[ -z "$c_val" ]]; then

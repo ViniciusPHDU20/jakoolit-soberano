@@ -1,0 +1,82 @@
+/* ==============================================================================
+ * Wayle Style Preset: Cyber-Chroma (High-Contrast Neon Edge)
+ * Project: jakoolit-soberano
+ * ============================================================================== */
+@define-color cyber_black #090a0f;
+@define-color cyber_neon_cyan #00f3ff;
+@define-color cyber_neon_pink #ff007f;
+@define-color cyber_neon_yellow #ffe600;
+@define-color cyber_fg #e0f8ff;
+@define-color cyber_muted #2a354b;
+
+* {
+    font-family: "JetBrainsMono Nerd Font", monospace;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+window.wayle-bar,
+.wayle-bar {
+    background-color: transparent;
+    color: @cyber_fg;
+}
+
+.bar-container {
+    background-color: alpha(@cyber_black, 0.95);
+    border: 1.5px solid @cyber_neon_cyan;
+    border-radius: 6px;
+    padding: 3px 6px;
+    margin: 4px 6px;
+    box-shadow: 0 0 14px alpha(@cyber_neon_cyan, 0.45);
+}
+
+.module-group {
+    background-color: alpha(@cyber_muted, 0.55);
+    border-radius: 4px;
+    padding: 2px 8px;
+    margin: 2px 4px;
+    border: 1px solid alpha(@cyber_neon_pink, 0.35);
+}
+
+.module {
+    padding: 0 6px;
+}
+
+.workspace-button {
+    padding: 2px 8px;
+    margin: 0 2px;
+    border-radius: 4px;
+    color: alpha(@cyber_fg, 0.5);
+    background: transparent;
+    border: 1px solid transparent;
+}
+
+.workspace-button.active {
+    color: @cyber_black;
+    background-color: @cyber_neon_cyan;
+    border: 1px solid @cyber_neon_cyan;
+    box-shadow: 0 0 10px @cyber_neon_cyan;
+}
+
+.workspace-button.urgent {
+    color: @cyber_black;
+    background-color: @cyber_neon_pink;
+    box-shadow: 0 0 12px @cyber_neon_pink;
+}
+
+.clock {
+    color: @cyber_neon_yellow;
+    font-weight: 800;
+}
+
+.pulseaudio {
+    color: @cyber_neon_cyan;
+}
+
+.battery {
+    color: @cyber_neon_pink;
+}
+
+.network {
+    color: @cyber_neon_cyan;
+}

@@ -537,6 +537,7 @@ bind("SUPER ALT", "mouse_up", function()
 end, { description = "zoom out" })
 bind("SUPER CTRL ALT", "B", exec_cmd("wayle panel toggle || pkill -x wayle || wayle shell &"), { description = "toggle wayle on/off" })
 bind("SUPER ALT", "B", exec_cmd("$HOME/.config/hypr/scripts/WayleLayout.sh"), { description = "wayle layout selector (47 presets)" })
+bind("SUPER CTRL", "B", exec_cmd("$HOME/.config/hypr/scripts/WayleStyles.sh"), { description = "wayle visual style selector" })
 bind(
   "SUPER",
   "N",

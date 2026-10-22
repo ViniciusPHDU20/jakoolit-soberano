@@ -37,8 +37,10 @@ resize_mode="$(wallpaper_resize_mode "$RANDOMPICS" "$focused_monitor")"
 wait $!
 mkdir -p "$(dirname "$wallpaper_base")"
 cp -f "$RANDOMPICS" "$wallpaper_base" || true
-if ! "$SCRIPTSDIR/WallustSwww.sh" "$RANDOMPICS"; then
-  notify-send -u critical "Wallust failed" "Wallpaper theme not refreshed"
+if [ -x "$SCRIPTSDIR/MatugenSwww.sh" ]; then
+  "$SCRIPTSDIR/MatugenSwww.sh" "$RANDOMPICS"
+elif ! "$SCRIPTSDIR/WallustSwww.sh" "$RANDOMPICS"; then
+  notify-send -u critical "Theming failed" "Wallpaper theme not refreshed"
   exit 1
 fi
 

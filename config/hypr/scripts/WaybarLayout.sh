@@ -23,6 +23,11 @@ apply_config() {
 }
 
 main() {
+    # Prefer Wayle Layout selector in Soberano environment
+    if [ "${PREFER_WAYBAR:-0}" != "1" ] && [ -x "$SCRIPTSDIR/WayleLayout.sh" ]; then
+        exec "$SCRIPTSDIR/WayleLayout.sh" "$@"
+    fi
+
     # Resolve current symlink target and basename
     current_target=$(readlink -f "$waybar_config")
     current_name=$(basename "$current_target")

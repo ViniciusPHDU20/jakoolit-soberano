@@ -1417,7 +1417,18 @@ if [ "$EXPRESS_MODE" -eq 1 ]; then
 elif [ "$RUN_MODE" != "install" ] && [ "${KOOLDOTS_RUNTIME_THEME_RESTORED:-0}" -eq 1 ]; then
   echo "${NOTE} Preserved existing Wallust/global theme colors from pre-upgrade state; skipping wallust regeneration." 2>&1 | tee -a "$LOG"
 else
+  if command -v matugen >/dev/null 2>&1; then
+    echo "${OK} Initializing Matugen Material Design 3 palettes from wallpaper..." 2>&1 | tee -a "$LOG"
+    matugen image "$wallpaper" --mode dark 2>&1 | tee -a "$LOG" || true
+  fi
   wallust "${wallust_args[@]}" run -s "$wallpaper" 2>&1 | tee -a "$LOG"
+fi
+
+# Ensure Wayle default configuration is deployed
+WAYLE_CONFIG_LINK="${XDG_CONFIG_HOME:-$HOME/.config}/wayle/config.toml"
+if [ ! -f "$WAYLE_CONFIG_LINK" ]; then
+  mkdir -p "${XDG_CONFIG_HOME:-$HOME/.config}/wayle"
+  cp "$DOTFILES_DIR/config/hypr/wayle/layouts/TOP-Default.toml" "$WAYLE_CONFIG_LINK" 2>&1 | tee -a "$LOG" || true
 fi
 if is_nixos && ! command -v waybar-weather >/dev/null 2>&1; then
   echo "${WARN} waybar-weather binary is missing." 2>&1 | tee -a "$LOG"

@@ -192,8 +192,10 @@ apply_image_wallpaper() {
   cp -f "$image_path" "$wallpaper_base" || true
 
   # Run additional scripts (pass the image path to avoid cache race conditions)
-  if ! "$SCRIPTSDIR/WallustSwww.sh" "$image_path"; then
-    notify-send -i "$iDIR/error.png" "Wallust failed" "Wallpaper theme not refreshed"
+  if [ -x "$SCRIPTSDIR/MatugenSwww.sh" ]; then
+    "$SCRIPTSDIR/MatugenSwww.sh" "$image_path"
+  elif ! "$SCRIPTSDIR/WallustSwww.sh" "$image_path"; then
+    notify-send -i "$iDIR/error.png" "Theming failed" "Wallpaper theme not refreshed"
     return 1
   fi
   sleep 0.5

@@ -338,7 +338,7 @@ copy_waybar() {
 copy_phase2() {
   local log="$1"
   local base="${DOTFILES_DIR:-.}"
-  local DIR="btop cava hypr Kvantum nwg-dock-hyprland qt5ct qt6ct starship swappy wlogout yazi"
+  local DIR="btop cava hypr Kvantum matugen nwg-dock-hyprland qt5ct qt6ct starship swappy wayle wlogout yazi"
 
   # copy_waybar() (called before copy_phase2) already placed the final
   # waybar content at ~/.config/hypr/waybar (fresh copy, or backed-up and

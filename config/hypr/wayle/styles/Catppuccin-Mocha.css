@@ -1,0 +1,96 @@
+/* ==============================================================================
+ * Wayle Style Preset: Catppuccin-Mocha
+ * Project: jakoolit-soberano
+ * ============================================================================== */
+@define-color base #1e1e2e;
+@define-color mantle #181825;
+@define-color crust #11111b;
+@define-color text #cdd6f4;
+@define-color subtext0 #a6adc8;
+@define-color surface0 #313244;
+@define-color surface1 #45475a;
+@define-color surface2 #585b70;
+@define-color mauve #cba6f7;
+@define-color lavender #b4befe;
+@define-color blue #89b4fa;
+@define-color sapphire #74c7ec;
+@define-color sky #89dceb;
+@define-color teal #94e2d5;
+@define-color green #a6e3a1;
+@define-color yellow #f9e2af;
+@define-color peach #fab387;
+@define-color maroon #eba0ac;
+@define-color red #f38ba8;
+
+* {
+    font-family: "JetBrainsMono Nerd Font", sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+window.wayle-bar,
+.wayle-bar {
+    background-color: transparent;
+    color: @text;
+}
+
+.bar-container {
+    background-color: alpha(@crust, 0.92);
+    border: 1px solid alpha(@surface1, 0.45);
+    border-radius: 12px;
+    padding: 3px 6px;
+    margin: 4px 8px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+}
+
+.module-group {
+    background-color: alpha(@mantle, 0.85);
+    border-radius: 9px;
+    padding: 2px 8px;
+    margin: 2px 4px;
+    border: 1px solid alpha(@surface0, 0.5);
+}
+
+.module {
+    padding: 0 6px;
+}
+
+.workspace-button {
+    padding: 2px 6px;
+    margin: 0 2px;
+    border-radius: 8px;
+    color: @subtext0;
+    background: transparent;
+}
+
+.workspace-button.active {
+    color: @crust;
+    background-color: @mauve;
+    box-shadow: 0 2px 8px alpha(@mauve, 0.5);
+}
+
+.workspace-button.urgent {
+    color: @crust;
+    background-color: @red;
+}
+
+.clock {
+    color: @lavender;
+    font-weight: 700;
+}
+
+.pulseaudio {
+    color: @sapphire;
+}
+
+.battery {
+    color: @green;
+}
+
+.battery.warning {
+    color: @red;
+}
+
+.network {
+    color: @teal;
+}
