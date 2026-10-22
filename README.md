@@ -1,3 +1,19 @@
+# 🌌 JaKooLit-Soberano (Next-Gen Wayle & Matugen Fork)
+
+> **Fork oficial e modernizado dos dotfiles do [JaKooLit / LinuxBeginnings](https://github.com/LinuxBeginnings/Hyprland-Dots).**  
+> **100% migrado da stack legada (Waybar GTK3 + Wallust) para a nova stack em Rust & GTK4 (Wayle + Matugen + Dual-Surface Engine).**
+
+---
+
+### ⚡ Destaques da Nova Arquitetura Soberana:
+- 🚀 **Wayle Engine**: Substituição completa do Waybar pelo Wayle em Rust/GTK4 (metade do consumo de RAM, animações a 165Hz e hot-reload via D-Bus).
+- 🎨 **Matugen 100%**: Cores dinâmicas extraídas de qualquer papel de parede via algoritmo oficial Material You (M3), sem templates frágeis de Wallust.
+- 📐 **47 Presets Convertidos**: Todos os 47 layouts clássicos do JaKooLit (`SummitSplit`, `Camellia`, `Peony`, `TOP-&-BOT`, etc.) transpilados nativamente para Wayle TOML em `config/hypr/wayle/layouts/`.
+- 🛡️ **Dual-Surface Rust Companion**: Módulo em Rust puro (`tools/soberano-cockpit-bar-rs`) para renderizar barras duplas simultâneas (topo + base) contornando limitações de singleton do Wayland.
+- 🔄 **Transpilador Incluso**: Script Python automatizado `tools/waybar_to_wayle_transpiler.py` para portar qualquer novo layout do Waybar para o Wayle em segundos.
+
+---
+
 [![jp](https://img.shields.io/badge/lang-jp-blue.svg)](./i18n/README/README.jp.md)
 [![ro](https://img.shields.io/badge/lang-ro-green.svg)](./i18n/README/README.ro.md)
 [![ru](https://img.shields.io/badge/lang-ru-red.svg)](./i18n/README/README.ru.md)

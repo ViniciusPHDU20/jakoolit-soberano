@@ -1,0 +1,37 @@
+# ==============================================================================
+# Wayle Layout Preset: BOT-Camellia
+# Automatically converted from JaKooLit Waybar config
+# Project: jakoolit-soberano (Next-Gen Wayle + Matugen)
+# ==============================================================================
+
+[bar]
+location = "bottom"
+scale = 1.0
+exclusive = true
+bg = "bg-surface"
+background-opacity = 96
+rounding = "sm"
+border-location = "all"
+border-width = 1
+border-color = "border-accent"
+module-gap = 0.4
+padding = 0.2
+padding-ends = 0.4
+
+[styling]
+scale = 1.0
+rounding = "sm"
+theme-provider = "matugen"
+
+[[bar.layout]]
+monitor = "*"
+show = true
+left = [
+    { name = "left-group", modules = [] }
+]
+center = [
+    { name = "center-group", modules = ["hyprland-submap", "window-title"] }
+]
+right = [
+    { name = "right-group", modules = [] }
+]
