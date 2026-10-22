@@ -27,9 +27,9 @@ if [ -z "$DOTFILES_DIR" ] || [ ! -d "$DOTFILES_DIR/config/hypr" ]; then
     echo -e "${YELLOW}⚡ Execução remota via curl/pipe detectada. Preparando ambiente...${RESET}"
     TARGET_DIR="$HOME/jakoolit-soberano"
     if ! command -v git >/dev/null 2>&1; then
-        echo -e "${BLUE}Instalando Git...${RESET}"
+        echo -e "${BLUE}Instalando Git e sincronizando repositórios...${RESET}"
         if command -v pacman >/dev/null 2>&1; then
-            sudo pacman -S --needed --noconfirm git
+            sudo pacman -Sy --needed --noconfirm git
         elif command -v apt >/dev/null 2>&1; then
             sudo apt update && sudo apt install -y git
         elif command -v dnf >/dev/null 2>&1; then
@@ -55,11 +55,25 @@ fi
 # 1. Instalar dependências essenciais no Arch Linux / CachyOS / Manjaro
 if command -v pacman >/dev/null 2>&1; then
     echo -e "\n${BLUE}[1/6] Verificando dependências no Arch Linux (Hardware Real & VM)...${RESET}"
+    sudo pacman -Sy --noconfirm || true
+
     AUR_HELPER=""
     if command -v yay >/dev/null 2>&1; then
         AUR_HELPER="yay"
     elif command -v paru >/dev/null 2>&1; then
         AUR_HELPER="paru"
+    else
+        echo -e "${YELLOW}AUR helper não encontrado. Instalando 'yay' automaticamente...${RESET}"
+        sudo pacman -S --needed --noconfirm base-devel git || true
+        YAY_TMP="$(mktemp -d)"
+        if git clone --depth=1 https://aur.archlinux.org/yay-bin.git "$YAY_TMP"; then
+            (cd "$YAY_TMP" && makepkg -si --noconfirm) || true
+        fi
+        rm -rf "$YAY_TMP"
+        if command -v yay >/dev/null 2>&1; then
+            AUR_HELPER="yay"
+            echo -e "${GREEN}✓ yay instalado com sucesso.${RESET}"
+        fi
     fi
 
     # Pacotes da stack Soberano + ferramentas de hardware real (Áudio, Bluetooth, Brilho, Portals)
