@@ -47,3 +47,8 @@ htmlcov/
 
 # Copy-Logs
 Copy-Logs/
+
+target/
+*.rlib
+*.rmeta
+
