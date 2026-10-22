@@ -535,9 +535,8 @@ bind("SUPER ALT", "mouse_up", function()
     hl.config({ cursor = { zoom_factor = new_factor } })
   end
 end, { description = "zoom out" })
-bind("SUPER CTRL ALT", "B", exec_cmd("pkill -SIGUSR1 waybar"), { description = "toggle waybar on/off" })
-bind("SUPER CTRL", "B", exec_cmd("$HOME/.config/hypr/scripts/WaybarStyles.sh"), { description = "waybar styles menu" })
-bind("SUPER ALT", "B", exec_cmd("$HOME/.config/hypr/scripts/WaybarLayout.sh"), { description = "waybar layout menu" })
+bind("SUPER CTRL ALT", "B", exec_cmd("wayle panel toggle || pkill -x wayle || wayle shell &"), { description = "toggle wayle on/off" })
+bind("SUPER ALT", "B", exec_cmd("$HOME/.config/hypr/scripts/WayleLayout.sh"), { description = "wayle layout selector (47 presets)" })
 bind(
   "SUPER",
   "N",
