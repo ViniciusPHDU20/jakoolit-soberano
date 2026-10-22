@@ -80,7 +80,7 @@ if command -v pacman >/dev/null 2>&1; then
     PACKAGES=(
         hyprland
         matugen-bin
-        wayle-shell
+        wayle-bin
         kitty
         fuzzel
         rofi-wayland
@@ -205,7 +205,7 @@ fi
 DEFAULT_WALL=$(find "$HOME/Pictures/wallpapers" -type f \( -name "*.jpg" -o -name "*.png" \) | head -n 1 || true)
 if [ -n "$DEFAULT_WALL" ] && command -v matugen >/dev/null 2>&1; then
     echo -e "🎨 Extraindo cores de $DEFAULT_WALL..."
-    matugen image "$DEFAULT_WALL" || true
+    matugen image --prefer=saturation "$DEFAULT_WALL" || matugen image "$DEFAULT_WALL" || true
 fi
 
 # 6. Permissões de execução dos scripts
