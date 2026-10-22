@@ -145,10 +145,10 @@ append_unique_candidate() {
   CANDIDATES+=("$candidate")
 }
 
-preferred_term="$(trim "${1:-${TERMINAL:-}}")"
+preferred_term="$(trim "${1:-${TERMINAL:-kitty}}")"
 payload_cmd="$(trim "${2:-}")"
 
-if [[ "$preferred_term" == '$term' || "$preferred_term" == '${term}' || "$preferred_term" == '$TERMINAL' || "$preferred_term" == '${TERMINAL}' ]]; then
+if [[ -z "$preferred_term" || "$preferred_term" == '$term' || "$preferred_term" == '${term}' || "$preferred_term" == '$TERMINAL' || "$preferred_term" == '${TERMINAL}' ]]; then
   preferred_term="${term:-${TERMINAL:-kitty}}"
 fi
 
