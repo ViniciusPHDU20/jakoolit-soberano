@@ -29,7 +29,7 @@ if [ -z "$DOTFILES_DIR" ] || [ ! -d "$DOTFILES_DIR/config/hypr" ]; then
     if ! command -v git >/dev/null 2>&1; then
         echo -e "${BLUE}Instalando Git e sincronizando repositórios...${RESET}"
         if command -v pacman >/dev/null 2>&1; then
-            sudo pacman -Sy --needed --noconfirm git
+            sudo pacman -Sy --needed --noconfirm archlinux-keyring git || (sudo pacman-key --init && sudo pacman-key --populate archlinux && sudo pacman -Sy --needed --noconfirm archlinux-keyring git)
         elif command -v apt >/dev/null 2>&1; then
             sudo apt update && sudo apt install -y git
         elif command -v dnf >/dev/null 2>&1; then
