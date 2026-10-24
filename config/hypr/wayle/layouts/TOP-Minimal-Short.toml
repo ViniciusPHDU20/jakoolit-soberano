@@ -5,8 +5,8 @@
 
 [bar]
 location = "top"
-inset-edge = 8.0
-inset-ends = 220.0
+inset-edge = 0.6
+inset-ends = 4.0
 padding = 0.35
 padding-ends = 0.6
 module-gap = 0.5
