@@ -220,7 +220,7 @@ apply_video_wallpaper() {
 # Main function
 main() {
   if command -v fuzzel >/dev/null 2>&1; then
-    choice=$(menu | awk -F'\x00' '{print $1}' | fuzzel -d -p " 🖼️ Escolha o Wallpaper ❯ " -w 42 -l 14)
+    choice=$(menu | awk -F'\x00' '{print $1}' | fuzzel -d -p "Wallpaper: " -w 42 -l 14)
   else
     "${XDG_CONFIG_HOME:-$HOME/.config}/hypr/scripts/RofiFocusedWallpaperLink.sh" >/dev/null 2>&1 || true
     choice=$(menu | $rofi_command)

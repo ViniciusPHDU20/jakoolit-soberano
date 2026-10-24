@@ -1,0 +1,28 @@
+# ==============================================================================
+#  Wayle Visual Style: Extra-EverForest
+#  Soberano Hyprland Ecosystem
+# ==============================================================================
+
+[styling]
+scale = 1.0
+rounding = "sm"
+theme-provider = "wayle"
+
+[styling.palette]
+bg = "#2d353b"
+surface = "#232a2e"
+elevated = "#343f44"
+fg = "#d3c6aa"
+fg-muted = "#859289"
+primary = "#a7c080"
+red = "#e67e80"
+yellow = "#dbbc7f"
+green = "#a7c080"
+blue = "#7fbbb3"
+
+[bar_style]
+button-variant = "basic"
+button-rounding = "sm"
+background-opacity = 90
+border-location = "bottom"
+border-width = 1

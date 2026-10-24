@@ -1,0 +1,25 @@
+# ==============================================================================
+#  Wayle Layout Preset: TOP-Default-old-v5
+#  Soberano Hyprland Ecosystem
+# ==============================================================================
+
+[bar]
+location = "top"
+inset-edge = 8.0
+inset-ends = 20.0
+padding = 0.35
+padding-ends = 0.6
+module-gap = 0.5
+rounding = "full"
+shadow = "floating"
+background-opacity = 85
+border-location = "all"
+border-width = 1
+button-variant = "icon-square"
+button-rounding = "full"
+
+[[bar.layout]]
+monitor = "*"
+left = ["hyprland-workspaces"]
+center = ["clock"]
+right = ["media", "volume", "power"]

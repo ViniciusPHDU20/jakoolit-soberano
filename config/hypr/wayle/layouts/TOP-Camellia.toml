@@ -1,36 +1,25 @@
 # ==============================================================================
-# Wayle Layout Preset: TOP-Camellia
-# Crafted for jakoolit-soberano (Next-Gen Wayle + Matugen)
+#  Wayle Layout Preset: TOP-Camellia
+#  Soberano Hyprland Ecosystem
 # ==============================================================================
-
-[general]
-font-sans = "Plus Jakarta Sans"
-font-mono = "JetBrains Mono"
 
 [bar]
 location = "top"
-scale = 1.0
-exclusive = true
-layer = "top"
-bg = "bg-surface"
-background-opacity = 96
+inset-edge = 8.0
+inset-ends = 36.0
+padding = 0.4
+padding-ends = 0.6
+module-gap = 0.5
 rounding = "full"
+shadow = "floating"
+background-opacity = 80
 border-location = "all"
 border-width = 1
-border-color = "border-accent"
-module-gap = 0.6
-padding = 0.2
-padding-ends = 0.8
+button-variant = "icon-square"
 button-rounding = "full"
-
-[styling]
-scale = 1.0
-rounding = "full"
-theme-provider = "matugen"
 
 [[bar.layout]]
 monitor = "*"
-show = true
-left = ["dashboard", "window-title"]
-center = ["hyprland-workspaces"]
-right = ["media", "volume", "clock", "systray"]
+left = ["hyprland-workspaces"]
+center = ["window-title"]
+right = ["media", "volume", "clock", "power"]

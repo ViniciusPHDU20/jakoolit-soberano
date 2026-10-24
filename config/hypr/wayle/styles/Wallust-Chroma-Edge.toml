@@ -1,0 +1,28 @@
+# ==============================================================================
+#  Wayle Visual Style: Wallust-Chroma-Edge
+#  Soberano Hyprland Ecosystem
+# ==============================================================================
+
+[styling]
+scale = 1.0
+rounding = "sm"
+theme-provider = "wayle"
+
+[styling.palette]
+bg = "#141420"
+surface = "#1c1c2c"
+elevated = "#262638"
+fg = "#d4d6e8"
+fg-muted = "#8a8ca4"
+primary = "#cba6f7"
+red = "#f38ba8"
+yellow = "#f9e2af"
+green = "#a6e3a1"
+blue = "#89b4fa"
+
+[bar_style]
+button-variant = "block-prefix"
+button-rounding = "sm"
+background-opacity = 85
+border-location = "all"
+border-width = 1

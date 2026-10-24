@@ -1,0 +1,28 @@
+# ==============================================================================
+#  Wayle Visual Style: VERTICAL-Catpuccin-Mocha
+#  Soberano Hyprland Ecosystem
+# ==============================================================================
+
+[styling]
+scale = 1.0
+rounding = "md"
+theme-provider = "wayle"
+
+[styling.palette]
+bg = "#1e1e2e"
+surface = "#181825"
+elevated = "#313244"
+fg = "#cdd6f4"
+fg-muted = "#a6adc8"
+primary = "#cba6f7"
+red = "#f38ba8"
+yellow = "#f9e2af"
+green = "#a6e3a1"
+blue = "#89b4fa"
+
+[bar_style]
+button-variant = "icon-square"
+button-rounding = "md"
+background-opacity = 85
+border-location = "all"
+border-width = 1

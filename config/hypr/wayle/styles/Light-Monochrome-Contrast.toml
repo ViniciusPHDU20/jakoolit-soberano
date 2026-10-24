@@ -1,0 +1,28 @@
+# ==============================================================================
+#  Wayle Visual Style: Light-Monochrome-Contrast
+#  Soberano Hyprland Ecosystem
+# ==============================================================================
+
+[styling]
+scale = 1.0
+rounding = "sm"
+theme-provider = "wayle"
+
+[styling.palette]
+bg = "#ffffff"
+surface = "#f0f0f0"
+elevated = "#e0e0e0"
+fg = "#000000"
+fg-muted = "#404040"
+primary = "#000000"
+red = "#333333"
+yellow = "#555555"
+green = "#222222"
+blue = "#111111"
+
+[bar_style]
+button-variant = "basic"
+button-rounding = "sm"
+background-opacity = 95
+border-location = "all"
+border-width = 1

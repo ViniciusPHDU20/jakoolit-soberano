@@ -1,0 +1,28 @@
+# ==============================================================================
+#  Wayle Visual Style: ML4W-Glass-3d
+#  Soberano Hyprland Ecosystem
+# ==============================================================================
+
+[styling]
+scale = 1.0
+rounding = "md"
+theme-provider = "wayle"
+
+[styling.palette]
+bg = "#161b22"
+surface = "#21262d"
+elevated = "#30363d"
+fg = "#f0f6fc"
+fg-muted = "#8b949e"
+primary = "#58a6ff"
+red = "#f85149"
+yellow = "#d29922"
+green = "#3fb950"
+blue = "#58a6ff"
+
+[bar_style]
+button-variant = "icon-square"
+button-rounding = "md"
+background-opacity = 40
+border-location = "all"
+border-width = 1

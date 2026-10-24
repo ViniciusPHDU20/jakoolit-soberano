@@ -1,0 +1,28 @@
+# ==============================================================================
+#  Wayle Visual Style: Catppuccin-Latte
+#  Soberano Hyprland Ecosystem
+# ==============================================================================
+
+[styling]
+scale = 1.0
+rounding = "sm"
+theme-provider = "wayle"
+
+[styling.palette]
+bg = "#eff1f5"
+surface = "#e6e9ef"
+elevated = "#ccd0da"
+fg = "#4c4f69"
+fg-muted = "#6c6f85"
+primary = "#8839ef"
+red = "#d20f39"
+yellow = "#df8e1d"
+green = "#40a02b"
+blue = "#1e66f5"
+
+[bar_style]
+button-variant = "block-prefix"
+button-rounding = "sm"
+background-opacity = 92
+border-location = "all"
+border-width = 1

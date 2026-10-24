@@ -1,36 +1,25 @@
 # ==============================================================================
-# Wayle Layout Preset: BOT-Default-Laptop
-# Crafted for jakoolit-soberano (Next-Gen Wayle + Matugen)
+#  Wayle Layout Preset: BOT-Default-Laptop
+#  Soberano Hyprland Ecosystem
 # ==============================================================================
-
-[general]
-font-sans = "Plus Jakarta Sans"
-font-mono = "JetBrains Mono"
 
 [bar]
 location = "bottom"
-scale = 1.0
-exclusive = true
-layer = "top"
-bg = "bg-surface"
+inset-edge = 0.0
+inset-ends = 0.0
+padding = 0.25
+padding-ends = 0.4
+module-gap = 0.5
+rounding = "none"
+shadow = "none"
 background-opacity = 96
-rounding = "sm"
-border-location = "top"
+border-location = "all"
 border-width = 1
-border-color = "border-accent"
-module-gap = 0.4
-padding = 0.3
-padding-ends = 0.5
-button-rounding = "sm"
-
-[styling]
-scale = 1.0
-rounding = "sm"
-theme-provider = "matugen"
+button-variant = "basic"
+button-rounding = "none"
 
 [[bar.layout]]
 monitor = "*"
-show = true
-left = ["dashboard", "cava", "media", "window-title"]
-center = ["hyprland-workspaces", "clock"]
-right = ["network", "volume", "microphone", "battery", "systray"]
+left = ["hyprland-workspaces"]
+center = ["clock"]
+right = ["volume", "battery", "power"]

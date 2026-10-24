@@ -1,36 +1,25 @@
 # ==============================================================================
-# Wayle Layout Preset: BOT-Chrysanthemum
-# Crafted for jakoolit-soberano (Next-Gen Wayle + Matugen)
+#  Wayle Layout Preset: BOT-Chrysanthemum
+#  Soberano Hyprland Ecosystem
 # ==============================================================================
-
-[general]
-font-sans = "Plus Jakarta Sans"
-font-mono = "JetBrains Mono"
 
 [bar]
 location = "bottom"
-scale = 1.0
-exclusive = true
-layer = "top"
-bg = "bg-surface"
-background-opacity = 96
-rounding = "sm"
-border-location = "top"
+inset-edge = 8.0
+inset-ends = 60.0
+padding = 0.38
+padding-ends = 0.55
+module-gap = 0.5
+rounding = "lg"
+shadow = "floating"
+background-opacity = 85
+border-location = "all"
 border-width = 1
-border-color = "border-accent"
-module-gap = 0.4
-padding = 0.3
-padding-ends = 0.5
-button-rounding = "sm"
-
-[styling]
-scale = 1.0
-rounding = "sm"
-theme-provider = "matugen"
+button-variant = "block-prefix"
+button-rounding = "md"
 
 [[bar.layout]]
 monitor = "*"
-show = true
-left = ["dashboard", "cava", "media", "window-title"]
-center = ["hyprland-workspaces", "clock"]
-right = ["network", "volume", "microphone", "cpu", "ram", "systray"]
+left = ["hyprland-workspaces", "cava"]
+center = ["clock"]
+right = ["volume", "battery", "power"]

@@ -1,75 +1,62 @@
 #!/usr/bin/env bash
-# ==================================================
-#  Soberano (2026) - Wayle Style Selector
-#  Project: jakoolit-soberano
-#  License: GNU GPLv3
-#  SPDX-License-Identifier: GPL-3.0-or-later
-# ==================================================
-set -euo pipefail
+# ==============================================================================
+#  Soberano Hyprland - Wayle Visual Style Selector (Fuzzel M3 Edition)
+#  Part of the jakoolit-soberano fork project
+# ==============================================================================
 
+IFS=$'\n\t'
 config_home="${XDG_CONFIG_HOME:-$HOME/.config}"
 wayle_styles_dir="$config_home/hypr/wayle/styles"
-wayle_active_style="$config_home/hypr/wayle/style.css"
-scripts_dir="$config_home/hypr/scripts"
-rofi_config="$config_home/hypr/rofi/config-waybar-style.rasi"
+manager="$config_home/hypr/scripts/wayle_manager.py"
 
-if [[ ! -d "$wayle_styles_dir" ]]; then
-    mkdir -p "$wayle_styles_dir"
+if [[ $# -gt 0 && -n "$1" ]]; then
+    target_style="${1%.toml}"
+    target_style="${target_style%.css}"
+    python3 "$manager" apply-style "$target_style"
+    exit $?
 fi
 
-current_target=$(readlink -f "$wayle_active_style" 2>/dev/null || echo "")
-current_name=$(basename "$current_target" .css)
-
-mapfile -t options < <(
-    find -L "$wayle_styles_dir" -maxdepth 1 -type f -name '*.css' -printf '%f\n' \
-        | sed 's/\.css$//' \
-        | sort
-)
-
-if [[ "${#options[@]}" -eq 0 ]]; then
-    notify-send "Wayle Styles" "No style presets found in $wayle_styles_dir"
+if [[ ! -d "$wayle_styles_dir" ]]; then
+    echo "Diretório de estilos não encontrado: $wayle_styles_dir"
     exit 1
 fi
 
-default_row=0
-MARKER="👉"
-for i in "${!options[@]}"; do
-    if [[ "${options[i]}" == "$current_name" ]]; then
-        options[i]="$MARKER ${options[i]}"
-        default_row=$i
-        break
-    fi
-done
+mapfile -t options < <(
+    find -L "$wayle_styles_dir" -maxdepth 1 -type f -name '*.toml' \
+        -exec basename {} .toml \; \
+        | sort
+)
+
+if [[ ${#options[@]} -eq 0 ]]; then
+    # Fallback to .css if tomls don't exist
+    mapfile -t options < <(
+        find -L "$wayle_styles_dir" -maxdepth 1 -type f -name '*.css' \
+            -exec basename {} .css \; \
+            | sort
+    )
+fi
+
+if [[ ${#options[@]} -eq 0 ]]; then
+    notify-send "Wayle Styles" "Nenhum estilo encontrado em $wayle_styles_dir"
+    exit 1
+fi
 
 if pgrep -x "fuzzel" >/dev/null; then
     pkill -x "fuzzel" || true
 fi
-if pgrep -x "rofi" >/dev/null; then
-    pkill -x "rofi" || true
-fi
 
+# Launch menu (Prioriza Fuzzel M3 nativo, fallback dmenu)
 if command -v fuzzel >/dev/null 2>&1; then
-    choice=$(printf '%s\n' "${options[@]}" | fuzzel -d -p " 🎨 Estilo Wayle ❯ " -w 35 -l 15)
+    choice=$(printf '%s\n' "${options[@]}" | fuzzel -d -p "Style: " -w 35 -l 15)
+elif command -v rofi >/dev/null 2>&1; then
+    choice=$(printf '%s\n' "${options[@]}" | rofi -i -dmenu -p "Style")
 else
-    choice=$(printf '%s\n' "${options[@]}" \
-        | rofi -i -dmenu \
-               -config "$rofi_config" \
-               -mesg " 🎨 Select Wayle Modern Visual Theme" \
-               -selected-row "$default_row" 2>/dev/null || true)
+    echo "Escolha um estilo:"
+    select choice in "${options[@]}"; do
+        break
+    done
 fi
 
 [[ -z "$choice" ]] && exit 0
 
-choice="${choice#"$MARKER "}"
-selected_file="$wayle_styles_dir/${choice}.css"
-
-if [[ -f "$selected_file" ]]; then
-    ln -sf "$selected_file" "$wayle_active_style"
-    mkdir -p "$config_home/wayle"
-    cp -f "$selected_file" "$config_home/wayle/style.css" 2>/dev/null || true
-    
-    if [[ -x "$scripts_dir/Refresh.sh" ]]; then
-        "$scripts_dir/Refresh.sh" &
-    fi
-    notify-send -u low "Wayle Style Applied" "Active theme: $choice"
-fi
+python3 "$manager" apply-style "$choice"

@@ -1,0 +1,28 @@
+# ==============================================================================
+#  Wayle Visual Style: Crystal-Clear-Glass
+#  Soberano Hyprland Ecosystem
+# ==============================================================================
+
+[styling]
+scale = 1.0
+rounding = "full"
+theme-provider = "wayle"
+
+[styling.palette]
+bg = "#141420"
+surface = "#1c1c2c"
+elevated = "#262638"
+fg = "#ffffff"
+fg-muted = "#d4d6e8"
+primary = "#90caf9"
+red = "#ef5350"
+yellow = "#ffee58"
+green = "#66bb6a"
+blue = "#42a5f5"
+
+[bar_style]
+button-variant = "basic"
+button-rounding = "full"
+background-opacity = 20
+border-location = "all"
+border-width = 1

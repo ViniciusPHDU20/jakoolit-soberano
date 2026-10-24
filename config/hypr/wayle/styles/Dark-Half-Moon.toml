@@ -1,0 +1,28 @@
+# ==============================================================================
+#  Wayle Visual Style: Dark-Half-Moon
+#  Soberano Hyprland Ecosystem
+# ==============================================================================
+
+[styling]
+scale = 1.0
+rounding = "full"
+theme-provider = "wayle"
+
+[styling.palette]
+bg = "#14161d"
+surface = "#1d202a"
+elevated = "#272b38"
+fg = "#d8dee9"
+fg-muted = "#7e889b"
+primary = "#88c0d0"
+red = "#bf616a"
+yellow = "#ebcb8b"
+green = "#a3be8c"
+blue = "#81a1c1"
+
+[bar_style]
+button-variant = "block-prefix"
+button-rounding = "full"
+background-opacity = 88
+border-location = "all"
+border-width = 1

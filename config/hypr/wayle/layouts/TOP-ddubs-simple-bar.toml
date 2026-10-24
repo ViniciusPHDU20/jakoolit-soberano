@@ -1,36 +1,25 @@
 # ==============================================================================
-# Wayle Layout Preset: TOP-ddubs-simple-bar
-# Crafted for jakoolit-soberano (Next-Gen Wayle + Matugen)
+#  Wayle Layout Preset: TOP-ddubs-simple-bar
+#  Soberano Hyprland Ecosystem
 # ==============================================================================
-
-[general]
-font-sans = "Plus Jakarta Sans"
-font-mono = "JetBrains Mono"
 
 [bar]
 location = "top"
-scale = 1.0
-exclusive = true
-layer = "top"
-bg = "bg-surface"
-background-opacity = 96
-rounding = "sm"
-border-location = "bottom"
-border-width = 1
-border-color = "border-accent"
-module-gap = 0.4
+inset-edge = 4.0
+inset-ends = 10.0
 padding = 0.3
 padding-ends = 0.5
-button-rounding = "sm"
-
-[styling]
-scale = 1.0
+module-gap = 0.5
 rounding = "sm"
-theme-provider = "matugen"
+shadow = "drop"
+background-opacity = 90
+border-location = "all"
+border-width = 1
+button-variant = "basic"
+button-rounding = "sm"
 
 [[bar.layout]]
 monitor = "*"
-show = true
-left = ["dashboard", "cava", "media", "window-title"]
-center = ["hyprland-workspaces", "clock"]
-right = ["network", "volume", "microphone", "cpu", "ram", "systray"]
+left = ["hyprland-workspaces"]
+center = ["window-title"]
+right = ["clock", "volume", "power"]
