@@ -98,7 +98,8 @@ def restart_wayle():
         # Ensure WAYLAND_DISPLAY
         if "WAYLAND_DISPLAY" not in env or not env["WAYLAND_DISPLAY"]:
             if os.path.isdir(rt):
-                wls = sorted([f for f in os.listdir(rt) if f.startswith("wayland-")], reverse=True)
+                import re
+                wls = sorted([f for f in os.listdir(rt) if re.match(r"^wayland-\d+$", f)], reverse=True)
                 if wls:
                     env["WAYLAND_DISPLAY"] = wls[0]
                     
