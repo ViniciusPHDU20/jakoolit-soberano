@@ -392,6 +392,28 @@ bind(
   ),
   { description = "app launcher" }
 )
+bind(
+  "SUPER",
+  "Space",
+  exec_cmd(
+    "pkill rofi || true; $HOME/.config/hypr/scripts/RofiFocusedWallpaperLink.sh >/dev/null 2>&1 || true; rofi -show drun -modi drun,filebrowser,run,window -config $HOME/.config/hypr/rofi/config.rasi"
+  ),
+  { description = "app launcher (Super Space)" }
+)
+bind(
+  "ALT",
+  "Space",
+  exec_cmd(
+    "pkill rofi || true; $HOME/.config/hypr/scripts/RofiFocusedWallpaperLink.sh >/dev/null 2>&1 || true; rofi -show drun -modi drun,filebrowser,run,window -config $HOME/.config/hypr/rofi/config.rasi"
+  ),
+  { description = "app launcher (Alt Space - VM safe)" }
+)
+bind(
+  "ALT",
+  "Return",
+  exec_cmd("$HOME/.config/hypr/scripts/LaunchTerminal.sh '$term'"),
+  { description = "Open terminal (Alt Return - VM safe)" }
+)
 bind("SUPER", "B", exec_cmd('xdg-open "https://"'), { description = "open default browser" })
 bind("SUPER", "A", exec_cmd("$HOME/.config/hypr/scripts/OverviewToggle.sh"), { description = "desktop overview" })
 bind("SUPER CTRL", "A", exec_cmd("pkill rofi || true && ags -t 'overview'"), { description = "Ags overview" })
