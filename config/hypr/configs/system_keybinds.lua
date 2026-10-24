@@ -387,25 +387,19 @@ end
 bind(
   "SUPER",
   "D",
-  exec_cmd(
-    "pkill rofi || true; $HOME/.config/hypr/scripts/RofiFocusedWallpaperLink.sh >/dev/null 2>&1 || true; rofi -show drun -modi drun,filebrowser,run,window -config $HOME/.config/hypr/rofi/config.rasi"
-  ),
-  { description = "app launcher" }
+  exec_cmd("pkill fuzzel || fuzzel"),
+  { description = "app launcher (Fuzzel M3)" }
 )
 bind(
   "SUPER",
   "Space",
-  exec_cmd(
-    "pkill rofi || true; $HOME/.config/hypr/scripts/RofiFocusedWallpaperLink.sh >/dev/null 2>&1 || true; rofi -show drun -modi drun,filebrowser,run,window -config $HOME/.config/hypr/rofi/config.rasi"
-  ),
+  exec_cmd("pkill fuzzel || fuzzel"),
   { description = "app launcher (Super Space)" }
 )
 bind(
   "ALT",
   "Space",
-  exec_cmd(
-    "pkill rofi || true; $HOME/.config/hypr/scripts/RofiFocusedWallpaperLink.sh >/dev/null 2>&1 || true; rofi -show drun -modi drun,filebrowser,run,window -config $HOME/.config/hypr/rofi/config.rasi"
-  ),
+  exec_cmd("pkill fuzzel || fuzzel"),
   { description = "app launcher (Alt Space - VM safe)" }
 )
 bind(
@@ -559,7 +553,9 @@ bind("SUPER ALT", "mouse_up", function()
 end, { description = "zoom out" })
 bind("SUPER CTRL ALT", "B", exec_cmd("wayle panel toggle || pkill -x wayle || wayle shell &"), { description = "toggle wayle on/off" })
 bind("SUPER ALT", "B", exec_cmd("$HOME/.config/hypr/scripts/WayleLayout.sh"), { description = "wayle layout selector (47 presets)" })
-bind("SUPER CTRL", "B", exec_cmd("$HOME/.config/hypr/scripts/WayleStyles.sh"), { description = "wayle visual style selector" })
+bind("ALT SHIFT", "B", exec_cmd("$HOME/.config/hypr/scripts/WayleLayout.sh"), { description = "wayle layout selector (VM safe: Alt Shift B)" })
+bind("SUPER CTRL", "B", exec_cmd("$HOME/.config/hypr/scripts/WayleStyles.sh"), { description = "wayle visual style selector (50 styles)" })
+bind("ALT CTRL", "B", exec_cmd("$HOME/.config/hypr/scripts/WayleStyles.sh"), { description = "wayle visual style selector (VM safe: Alt Ctrl B)" })
 bind(
   "SUPER",
   "N",
@@ -568,6 +564,7 @@ bind(
 )
 bind("SUPER SHIFT", "M", exec_cmd("$HOME/.config/hypr/UserScripts/RofiBeats.sh"), { description = "online music" })
 bind("SUPER", "W", exec_cmd("$HOME/.config/hypr/scripts/WallpaperSelect.sh"), { description = "select wallpaper" })
+bind("ALT", "W", exec_cmd("$HOME/.config/hypr/scripts/WallpaperSelect.sh"), { description = "select wallpaper (VM safe: Alt W)" })
 bind(
   "SUPER SHIFT",
   "W",

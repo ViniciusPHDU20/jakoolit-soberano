@@ -34,10 +34,9 @@ else
 fi
 
 
-# Check if package bc exists
+# Check if package bc exists (optional for rofi dynamic dimensions)
 if ! command -v bc &>/dev/null; then
-  notify-send -i "$iDIR/error.png" "bc missing" "Install package bc first"
-  exit 1
+  echo "Aviso: 'bc' não encontrado. Continuando..." >&2
 fi
 
 # Variables
@@ -220,8 +219,12 @@ apply_video_wallpaper() {
 
 # Main function
 main() {
-  "${XDG_CONFIG_HOME:-$HOME/.config}/hypr/scripts/RofiFocusedWallpaperLink.sh" >/dev/null 2>&1 || true
-  choice=$(menu | $rofi_command)
+  if command -v fuzzel >/dev/null 2>&1; then
+    choice=$(menu | awk -F'\x00' '{print $1}' | fuzzel -d -p " 🖼️ Escolha o Wallpaper ❯ " -w 42 -l 14)
+  else
+    "${XDG_CONFIG_HOME:-$HOME/.config}/hypr/scripts/RofiFocusedWallpaperLink.sh" >/dev/null 2>&1 || true
+    choice=$(menu | $rofi_command)
+  fi
   choice=$(echo "$choice" | xargs)
   RANDOM_PIC_NAME=$(echo "$RANDOM_PIC_NAME" | xargs)
   raw_choice="$choice"

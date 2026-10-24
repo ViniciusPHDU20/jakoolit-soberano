@@ -1,37 +1,36 @@
 # ==============================================================================
 # Wayle Layout Preset: TOP-Default-Laptop-glass
-# Automatically converted from JaKooLit Waybar config
-# Project: jakoolit-soberano (Next-Gen Wayle + Matugen)
+# Crafted for jakoolit-soberano (Next-Gen Wayle + Matugen)
 # ==============================================================================
+
+[general]
+font-sans = "Plus Jakarta Sans"
+font-mono = "JetBrains Mono"
 
 [bar]
 location = "top"
 scale = 1.0
 exclusive = true
+layer = "top"
 bg = "bg-surface"
-background-opacity = 96
-rounding = "sm"
-border-location = "all"
+background-opacity = 60
+rounding = "md"
+border-location = "bottom"
 border-width = 1
 border-color = "border-accent"
 module-gap = 0.4
-padding = 0.2
-padding-ends = 0.4
+padding = 0.25
+padding-ends = 0.6
+button-rounding = "md"
 
 [styling]
 scale = 1.0
-rounding = "sm"
+rounding = "md"
 theme-provider = "matugen"
 
 [[bar.layout]]
 monitor = "*"
 show = true
-left = [
-    { name = "left-group", modules = ["cava", "media", "window-title"] }
-]
-center = [
-    { name = "center-group", modules = ["hyprland-submap", "notifications", "hyprland-workspaces", "clock"] }
-]
-right = [
-    { name = "right-group", modules = ["systray"] }
-]
+left = ["dashboard", "cava", "media", "window-title"]
+center = ["hyprland-workspaces", "clock"]
+right = ["network", "volume", "microphone", "battery", "systray"]

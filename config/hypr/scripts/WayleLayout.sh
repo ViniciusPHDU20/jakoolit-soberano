@@ -49,15 +49,15 @@ main() {
         exit 1
     fi
 
-    # Launch menu
-    if command -v rofi >/dev/null 2>&1 && [ -f "$rofi_config" ]; then
+    # Launch menu (Prioriza Fuzzel M3 nativo, fallback Rofi)
+    if command -v fuzzel >/dev/null 2>&1; then
+        choice=$(printf '%s\n' "${options[@]}" | fuzzel -d -p " 📐 Layout Wayle ❯ " -w 35 -l 15)
+    elif command -v rofi >/dev/null 2>&1 && [ -f "$rofi_config" ]; then
         choice=$(printf '%s\n' "${options[@]}" \
             | rofi -i -dmenu \
                    -config "$rofi_config" \
                    -mesg "$msg"
         )
-    elif command -v fuzzel >/dev/null 2>&1; then
-        choice=$(printf '%s\n' "${options[@]}" | fuzzel -d -p "Wayle Layout > ")
     else
         echo "Escolha um layout:"
         select choice in "${options[@]}"; do

@@ -41,15 +41,22 @@ for i in "${!options[@]}"; do
     fi
 done
 
+if pgrep -x "fuzzel" >/dev/null; then
+    pkill -x "fuzzel" || true
+fi
 if pgrep -x "rofi" >/dev/null; then
     pkill -x "rofi" || true
 fi
 
-choice=$(printf '%s\n' "${options[@]}" \
-    | rofi -i -dmenu \
-           -config "$rofi_config" \
-           -mesg " 🎨 Select Wayle Modern Visual Theme" \
-           -selected-row "$default_row" 2>/dev/null || true)
+if command -v fuzzel >/dev/null 2>&1; then
+    choice=$(printf '%s\n' "${options[@]}" | fuzzel -d -p " 🎨 Estilo Wayle ❯ " -w 35 -l 15)
+else
+    choice=$(printf '%s\n' "${options[@]}" \
+        | rofi -i -dmenu \
+               -config "$rofi_config" \
+               -mesg " 🎨 Select Wayle Modern Visual Theme" \
+               -selected-row "$default_row" 2>/dev/null || true)
+fi
 
 [[ -z "$choice" ]] && exit 0
 
