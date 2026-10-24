@@ -6,7 +6,7 @@ Part of jakoolit-soberano fork
 """
 import sys
 import os
-import shutil
+import time
 import subprocess
 
 CONFIG_DIR = os.path.expanduser("~/.config")
@@ -34,6 +34,51 @@ green = "#a6e3a1"
 blue = "#89b4fa"
 """
 
+DEFAULT_MODULES = """
+[modules.power]
+left-click = "sh -c $HOME/.config/hypr/scripts/Wlogout.sh"
+
+[modules.dashboard]
+left-click = "dropdown:dashboard"
+right-click = "sh -c $HOME/.config/hypr/scripts/AppLauncher.sh"
+
+[modules.clock]
+format = "%a %b %d  %H:%M"
+left-click = "dropdown:calendar"
+right-click = "dropdown:weather"
+
+[modules.cava]
+bars = 16
+framerate = 60
+stereo = false
+color = "accent"
+
+[modules.hyprland-workspaces]
+display-mode = "label"
+active-indicator = "background"
+active-color = "accent"
+occupied-color = "fg-default"
+empty-color = "fg-muted"
+
+[modules.volume]
+left-click = "dropdown:audio"
+middle-click = "wayle audio output-mute"
+
+[modules.weather]
+provider = "open-meteo"
+units = "metric"
+left-click = "dropdown:weather"
+
+[modules.battery]
+left-click = "dropdown:battery"
+
+[modules.brightness]
+left-click = "dropdown:brightness"
+
+[modules.bluetooth]
+left-click = "dropdown:bluetooth"
+"""
+
 def notify(title, message, icon="preferences-desktop-theme"):
     try:
         subprocess.run(["notify-send", "-e", "-u", "low", "-i", icon, title, message], check=False)
@@ -43,8 +88,35 @@ def notify(title, message, icon="preferences-desktop-theme"):
 def restart_wayle():
     try:
         subprocess.run(["pkill", "-x", "wayle"], check=False)
-        # Ensure wayle shell is spawned in background
-        subprocess.Popen(["wayle", "shell"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, start_new_session=True)
+        time.sleep(0.4)
+        
+        env = os.environ.copy()
+        rt = env.get("XDG_RUNTIME_DIR", "/run/user/1000")
+        env["XDG_RUNTIME_DIR"] = rt
+        env["GDK_BACKEND"] = "wayland"
+        
+        # Ensure WAYLAND_DISPLAY
+        if "WAYLAND_DISPLAY" not in env or not env["WAYLAND_DISPLAY"]:
+            if os.path.isdir(rt):
+                wls = sorted([f for f in os.listdir(rt) if f.startswith("wayland-")], reverse=True)
+                if wls:
+                    env["WAYLAND_DISPLAY"] = wls[0]
+                    
+        # Ensure HYPRLAND_INSTANCE_SIGNATURE
+        if "HYPRLAND_INSTANCE_SIGNATURE" not in env or not env["HYPRLAND_INSTANCE_SIGNATURE"]:
+            hypr_dir = os.path.join(rt, "hypr")
+            if os.path.isdir(hypr_dir):
+                sigs = sorted(os.listdir(hypr_dir), reverse=True)
+                if sigs:
+                    env["HYPRLAND_INSTANCE_SIGNATURE"] = sigs[0]
+                    
+        subprocess.Popen(
+            ["wayle", "shell"],
+            env=env,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+            start_new_session=True
+        )
     except Exception as e:
         print(f"Error restarting wayle: {e}", file=sys.stderr)
 
@@ -55,14 +127,19 @@ def get_current_sections():
         with open(WAYLE_CONFIG_PATH, "r", encoding="utf-8") as f:
             content = f.read()
         
-        # Split into bar vs styling
         bar_part = ""
         styling_part = ""
         
         if "[styling]" in content:
             idx = content.index("[styling]")
             bar_part = content[:idx].strip()
-            styling_part = content[idx:].strip()
+            # If [modules.] exists inside styling_part, strip it
+            st_text = content[idx:].strip()
+            if "[modules." in st_text:
+                m_idx = st_text.index("[modules.")
+                styling_part = st_text[:m_idx].strip()
+            else:
+                styling_part = st_text
         else:
             bar_part = content.strip()
             styling_part = DEFAULT_STYLING.strip()
@@ -87,7 +164,7 @@ def apply_layout(layout_name):
         current_styling = DEFAULT_STYLING.strip()
         
     os.makedirs(os.path.dirname(WAYLE_CONFIG_PATH), exist_ok=True)
-    full_config = f"{layout_content}\n\n{current_styling}\n"
+    full_config = f"{layout_content}\n\n{current_styling}\n\n{DEFAULT_MODULES.strip()}\n"
     
     with open(WAYLE_CONFIG_PATH, "w", encoding="utf-8") as f:
         f.write(full_config)
@@ -110,7 +187,6 @@ def apply_style(style_name):
         
     current_bar, _ = get_current_sections()
     if not current_bar:
-        # Fallback to TOP-Default layout if no bar section exists
         default_layout_file = os.path.join(LAYOUTS_DIR, "TOP-Default.toml")
         if os.path.isfile(default_layout_file):
             with open(default_layout_file, "r", encoding="utf-8") as lf:
@@ -118,17 +194,17 @@ def apply_style(style_name):
         else:
             current_bar = """[bar]
 location = "top"
-inset-edge = 8.0
-inset-ends = 24.0
-rounding = "full"
-shadow = "floating"
-background-opacity = 85
+inset-edge = 0.0
+inset-ends = 0.0
+rounding = "none"
+shadow = "none"
+background-opacity = 100
 
 [[bar.layout]]
 monitor = "*"
-left = ["hyprland-workspaces"]
+left = ["dashboard", "hyprland-workspaces", "window-title"]
 center = ["clock"]
-right = ["volume", "power"]"""
+right = ["cava", "volume", "network", "battery", "power"]"""
 
     # Parse [bar_style] overrides if present in style file
     styling_part = style_content
@@ -137,13 +213,11 @@ right = ["volume", "power"]"""
         styling_part = parts[0].strip()
         bar_overrides = parts[1].strip()
         
-        # Apply button-variant and opacity overrides into current_bar
         for line in bar_overrides.splitlines():
             line = line.strip()
             if not line or "=" not in line:
                 continue
             key, val = [x.strip() for x in line.split("=", 1)]
-            # If key already in bar, replace it, else append to [bar]
             if f"{key} =" in current_bar:
                 current_bar = "\n".join(
                     f"{key} = {val}" if l.strip().startswith(f"{key} =") else l
@@ -151,7 +225,7 @@ right = ["volume", "power"]"""
                 )
 
     os.makedirs(os.path.dirname(WAYLE_CONFIG_PATH), exist_ok=True)
-    full_config = f"{current_bar}\n\n{styling_part}\n"
+    full_config = f"{current_bar}\n\n{styling_part}\n\n{DEFAULT_MODULES.strip()}\n"
     
     with open(WAYLE_CONFIG_PATH, "w", encoding="utf-8") as f:
         f.write(full_config)

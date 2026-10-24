@@ -1,6 +1,6 @@
 # ==============================================================================
 #  Wayle Layout Preset: TOP-and-BOT-SummitSplit-v2
-#  Soberano Hyprland Ecosystem
+#  Authentic JaKooLit-Soberano Port
 # ==============================================================================
 
 [bar]
@@ -9,7 +9,7 @@ inset-edge = 0.4
 inset-ends = 0.6
 padding = 0.35
 padding-ends = 0.5
-module-gap = 0.5
+module-gap = 0.4
 rounding = "md"
 shadow = "drop"
 background-opacity = 90
@@ -20,6 +20,6 @@ button-rounding = "md"
 
 [[bar.layout]]
 monitor = "*"
-left = ["hyprland-workspaces", "cava"]
+left = ["dashboard", "clock", "bluetooth", "network"]
 center = ["window-title"]
-right = ["clock", "volume", "power"]
+right = ["media", "battery", "brightness", "volume", "cpu", "idle-inhibit", "hyprsunset", "power"]

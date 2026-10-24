@@ -1,6 +1,6 @@
 # ==============================================================================
 #  Wayle Layout Preset: BOT-Chrysanthemum
-#  Soberano Hyprland Ecosystem
+#  Authentic JaKooLit-Soberano Port
 # ==============================================================================
 
 [bar]
@@ -9,7 +9,7 @@ inset-edge = 0.5
 inset-ends = 1.2
 padding = 0.38
 padding-ends = 0.55
-module-gap = 0.5
+module-gap = 0.4
 rounding = "lg"
 shadow = "floating"
 background-opacity = 85
@@ -20,6 +20,6 @@ button-rounding = "md"
 
 [[bar.layout]]
 monitor = "*"
-left = ["hyprland-workspaces", "cava"]
-center = ["clock"]
-right = ["volume", "battery", "power"]
+left = ["clock", "media", "systray", "notifications"]
+center = ["hyprland-workspaces"]
+right = ["volume", "brightness", "power", "battery"]

@@ -1,6 +1,6 @@
 # ==============================================================================
 #  Wayle Layout Preset: TOP-Arrow
-#  Soberano Hyprland Ecosystem
+#  Authentic JaKooLit-Soberano Port
 # ==============================================================================
 
 [bar]
@@ -9,17 +9,17 @@ inset-edge = 0.0
 inset-ends = 0.0
 padding = 0.3
 padding-ends = 0.4
-module-gap = 0.5
+module-gap = 0.4
 rounding = "none"
 shadow = "none"
 background-opacity = 100
-border-location = "all"
-border-width = 1
-button-variant = "block-prefix"
+border-location = "bottom"
+border-width = 2
+button-variant = "basic"
 button-rounding = "none"
 
 [[bar.layout]]
 monitor = "*"
-left = ["hyprland-workspaces"]
-center = ["window-title"]
-right = ["volume", "clock", "power"]
+left = ["hyprland-workspaces", "window-title"]
+center = []
+right = ["volume", "network", "ram", "cpu", "battery", "systray", "hyprsunset", "clock"]

@@ -1,15 +1,15 @@
 # ==============================================================================
 #  Wayle Layout Preset: TOP-Minimal-Short
-#  Soberano Hyprland Ecosystem
+#  Authentic JaKooLit-Soberano Port
 # ==============================================================================
 
 [bar]
 location = "top"
 inset-edge = 0.6
-inset-ends = 4.0
+inset-ends = 3.5
 padding = 0.35
 padding-ends = 0.6
-module-gap = 0.5
+module-gap = 0.4
 rounding = "full"
 shadow = "floating"
 background-opacity = 88
@@ -20,6 +20,6 @@ button-rounding = "full"
 
 [[bar.layout]]
 monitor = "*"
-left = ["hyprland-workspaces"]
-center = ["clock"]
-right = ["volume", "power"]
+left = ["clock", "weather"]
+center = ["hyprland-workspaces"]
+right = ["dashboard", "systray", "notifications", "media", "network", "brightness", "volume", "battery", "power"]
